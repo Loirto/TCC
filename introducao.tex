@@ -1,0 +1,41 @@
+\chapter{Antivirus}
+
+\section{}
+Os antivirus são softwares criados para analisar, detectar, eliminar e impedir os virus informáticos ou ao menos diminuir a intensidade do ataque. Foram criados pela necessidade de que os virus impediam a utilização do sistema. Os virus atuais são mais poderosos, e ainda existem outros não tão fortes que são utilizados como piada ou somente para incomodar, se espalhar pelos computadores sem fazer mal à máquina e sim à paciência do usuário.
+
+\section{História}
+O primeiro antivirus foi criado em 1988 por Denny Yanuar Ramdhani. Era uma vacina ao virus Brain, um virus de boot, além de remover o virus imunizava o sistema contra uma nova infecção. A forma de desinfectar era remover as entradas do virus no pc e já bloqueava ests fraquezas para impedir um novo ataque. Ainda em 1988 um virus foi projetado para infectar com a "ajuda" da BBS, nisto John McAfee, desenvolveu o VirusScan, primeira vacina para o virus.
+\section{Antivirus e SO}
+Por enquanto existe uma dependência dos virus para com os sistemas operacionais, pois afetam o modo em que o executável interage com o sistema, e pedidos especiais são feitos pelo próprio SO e cada qual o faz de forma diferente, ou seja um virus que funciona em windows nunca funcionaria em linux, só se fossem chamadas suas APIs, como feito pelo wine no sistema linux, e mesmo assim não teria todo o potencial de infecção, já que é preparado para a estrutura do sistema para o qual foi projetado.
+
+\subsection{DOS}
+No sistema DOS o anti-virus não funciona em "tempo real", somente como scanner, normalmente era colocado no boot do sistema para varrer o sistema em busca de novas infecções, e outras verificações somente se chamado pelo usuário. Sendo infectado no meio de uma tarefa o virus já se propagou e danificou diversas areas e somente será percebido na nova execução do antivirus.
+
+\subsection{Windows}
+Já no windows o antivírus protege as principais formas de ataque, para este sistema. 
+continua a utilizar o scanner, como no DOS. 
+Ganhou a função de monitoramento, com diversas ferramentas para encontrar padrões de virus. 
+   A cada executável aberto há esta verificação, o que compromete o desempenho do computador.
+A cada periodo pré-determinado há uma varredura sobre os arquivos do sistema para verificar arquivos infectados, remove o virus e tenta manter a integridade do arquivo.
+Se encontra um padrão de infecção mas ainda não existe "vacina" para remoção diversos sistemas de proteção utilizam a ferramenta de "quarentena", ou seja mantém o arquivo infectado em um espaço que não pode ser "alcançado" pelo usuário até que possa restaurar o arquivo, ou ao menos conheça o virus.
+
+\subsection{Linux}
+Não são muito populares neste sistema. Por enquanto não há uma grande preocupação, nem pela parte de usuários e nem pela parte de desenvolvedores. O que existe hoje são alguns sistemas que detectam virus para windows pelo linux, para fazer uma manutenção do sistema. E mesmo assim não são tão "potentes" quanto os de windows, não há muita preocupação em desenvolve-los.
+
+
+\section{Técnicas de detecção}
+São diversas as técnicas de detecção dentre elas:
+Heuristica: Que significa descobrir. Estuda o comportamento, estrutura e caracteristicas para analisar se é perigoso ao sistema ou inofensivo.
+Emulação: Abre o arquivo em uma virtualização do sistema, e analisa os efeitos sobre o sistema.
+Arquivo monitorado: Mantém um arquivo no sistema e o monitora, se ele modificar alguma caracteristica é porque o sistema foi infectado. E então o antivirus toma as precauções necessárias.
+Assinatura do virus: Com um trecho de código do virus tem-se sua assinatura, quando tenta detectar o virus busca-as para analisar se já não existe dentro do banco de dados do antivirus.
+Temos o falso positivo, o antivirus com base no comportamente do arquivo o considera infectado, o que dificulta para usuários comuns identificarem as anomalias e utilizar com segurança o sistema.
+
+\subsection{Virus de pendrive}
+No sistema operacional windows eles se utilizam do arquivo autorun.inf para se autoexecutar e infectar a máquina. sua limpeza é simples, existem alguns antivirus que alteram o conteudo do autorun e tiram a permissão de gravação do arquivo, e alguns usuários criam um diretorio com onome autorun.inf e isso impede de criar o tal arquivo. os virus em si funcionam de forma interessante, temos por exemplo o conficker q apos infectar o pc ele passa a infectar td pendrive q nel for utilizado, assim como enquanto conectado a internet ele baixa diversos outros virus e com isso acaba com o sistema e arquivos do usuario. sua prevenção é simples e sua remoção é complicada. ou seja se todos fossem informados de como o virus funciona a prevenção seria óbvia e este tipo de virus seria obsoleto.
+
+\subsection{Virus de macro}
+Os virus de macro são utilizados dentro de, aparentemente, inofensiveis arquivos estilo "office" são scripts executados automaticamente para facilitar a visualização dos arquivos e fazer eles executarem o que teriam de executar, os criadores de virus aproveitam que macros tem poder de execução e infectam os arquivos colocando dentre a macro código malicioso que o usuário previamente nem notará, e após execução do arquivo já estará infectado e infectará outros. A maior praga disso esta nas apresentações de slides, como foi muito difundido por e-mails para passar imagens com animações. O virus se instala dentro destes arquivos e o usuário desconhece que por trás de tudo que está visualizando um virus acabou de se instalar em sua máquina.
+\subsection{Virus Polimórficos}
+Ainda não existe uma forma eficaz para se detectar este tipo de virus, eles não tem um padrão a ser identificado. O que se faz é criar um arquivo de vitima e este fica sempre sendo monitorado, mas o bom virus polimorfico já está residente em memória e faz o sistema "ver" o arquivo como inalterado e com isso não há mais nada a ser feito. seria uma limpeza manual, sem o auxilio de outra maquina seria inviavel, enquanto o virus se infecta o usuario tentaria localiza-lo e deleta-lo uma guerra perdida.
+\end
