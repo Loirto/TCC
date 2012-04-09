@@ -1,0 +1,16 @@
+%%
+%% Customizando as páginas: baseado no arquivo abnt.cls (1in=2.54cm)
+%% A ordem dos comandos é importante!
+%%............................................................................
+\setlength{\parindent}{0.7cm}                       % Tamanho da indentação do parágrafo
+\setlength{\parskip}{.25cm}                         % Distância entre parágrafos
+\renewcommand{\baselinestretch}{1.35}               % Espaço duplo
+\setlength{\headsep}{1.2cm-\headheight}             % Distância entre texto e cabeçalho
+\setlength{\topmargin}{1.3cm-1in-\voffset}          % Margem Superior
+\setlength{\textheight}% 
+{\paperheight-\topmargin-\voffset-1in-\headheight-\headsep-2.2cm}       % Altura do texto
+\setlength{\oddsidemargin}{3cm-\hoffset-1in}        % Margens: esquerda=3cm, direita=2cm 
+\setlength{\evensidemargin}{2cm-\hoffset-1in}       % Margens para impressão frente e verso
+\setlength{\textwidth}{\paperwidth-\oddsidemargin-\hoffset-1in-2cm}   % Largura do texto
+\addtolength{\headheight}{\baselineskip}            % Ajuste da linha de cabeçalho com o texto
+

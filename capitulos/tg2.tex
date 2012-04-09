@@ -1,0 +1,86 @@
+\documentclass[a4paper]{abnt}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%% - Abnt UFPR -
+\usepackage{abnt-UFPR}
+\usepackage[num]{abntcite}
+
+%% - Outros Pacotes -
+
+% -----------------------------------------------------------------------
+% -				   CAPA					-
+% -----------------------------------------------------------------------
+\begin{document}
+
+\autor{Loirto Alves dos Santos \and Luiz Henrique Pinto}
+\titulo{Meu TG :)}
+\orientador{~le orientador~}
+\coorientador{~le coorientador~}
+\comentario{Monografia apresentada para obtenção do Grau de Bacharel em Ciência
+da Computação pela Universidade Federal do Paraná.}
+\instituicao{grupo do orientador (?) \par Departamento de Informática \par Universidade
+Federal do Paraná}
+\local{Curitiba - PR, Brasil}
+\data{20 de dezembro de 2011}
+
+\capa
+\folhaderosto
+
+
+\chapter*{Agradecimentos}
+
+blá...
+
+Obrigado!
+
+% -----------------------------------------------------------------------
+% -			   INÍCIO DO DOCUMENTO				-
+% -----------------------------------------------------------------------
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\sumario
+
+% -----------------------------------------------------------------------
+\begin{resumo}
+
+Resumão a la evinci...
+Troque as palavras chave!
+
+\noindent \textbf{Palavras-chave}: Biometria, Detecção Facial 3D, Processamento Paralelo, OpenCL, Imagens de Profundidade.
+
+\end{resumo}	
+
+% -----------------------------------------------------------------------
+\chapter{Introdução}
+\setcounter{page}{10}
+
+Já não é um resumo aqui...
+
+revisao na seção~\ref{sec:revisao_bibliografica}; conclusão em~\ref{sec:conclusao}...
+
+% -----------------------------------------------------------------------
+\chapter{Revisão Bibliográfica}
+\label{sec:revisao_bibliografica}
+
+blabla
+
+\section{uma seção}
+
+bla bla
+
+\subsection{uma subseção}
+
+tatata
+
+% -----------------------------------------------------------------------
+% -			       REFERÊNCIAS				-
+% -----------------------------------------------------------------------
+
+\bibliographystyle{acm}
+\bibliography{tg.bib}
+
+\end{document}
+

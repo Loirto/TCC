@@ -1,0 +1,96 @@
+\documentclass[12pt, a4paper]{TG}
+%% Linguagem
+\usepackage[brazilian]{babel}
+%% Codificação 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%% Outros pacotes
+\usepackage{times}
+\usepackage{url}
+\usepackage{amssymb}
+\usepackage{caption2}
+\usepackage{setspace}
+\usepackage{subfigure}
+\usepackage{boxedminipage}
+\usepackage{ifpdf}
+\ifpdf		% ### Running pdflatex ###
+  \usepackage[pdftex]{graphicx}
+  \DeclareGraphicsExtensions{.jpg, .pdf, .mps, .png}
+\else		% ### Not running pdflatex ###
+  \usepackage[dvips]{graphicx}
+\fi
+%% Diretório de imagens
+\graphicspath{{img/}}
+%% Configuração das margens
+\topmargin        -10mm
+\headheight         5mm       % altura do cabecalho
+\headsep            5mm       % distancia entre cabeçalho e texto
+\oddsidemargin     +5mm       % paginas impares (frente)
+\evensidemargin    +5mm       % paginas pares (verso)
+\textwidth        160mm       % largura do corpo do texto
+\textheight       252mm       % altura do corpo do texto
+\footskip           15mm       % distancia entre texto e rodape
+%\setlength{\footskip}{6cm}
+\sloppy
+
+\title{Vírus Polimórfico}
+\author{Loirto Alves dos Santos e Luiz Henrique Pires de Camargo}
+\advisortitle{Orientador}
+\advisorname{Prof. Dr. Bruno Müller Junior}
+\city{Curitiba}
+\year{2012}
+
+\begin{document}
+
+	% ### Cria folha de rosto para versão final da UFPR
+	\makerostosimples
+	\makerosto
+
+	%\singlespacing          % espacamento 1 - capa UFPR%
+	\onehalfspacing          % espacamento 1/2 %
+	%\doublespacing          % espacamento 1/2 %
+  
+	\pagestyle{headings}
+	\pagenumbering{roman}
+
+	% ### Abstract (antes do sumario) ###
+	\input{abstract.tex}        % somente o texto
+	\newpage
+
+	% ### Sumario ###
+	\tableofcontents
+	\newpage
+
+	% ### Lista de figuras - Recomendado se houver mais de 3 figuras ###
+	\addcontentsline{toc}{chapter}{\MakeUppercase{Lista de Figuras}}
+	\listoffigures
+	\newpage
+
+	% ### Lista de tabelas - Recomendado se houver mais de 3 tabelas ###
+	\addcontentsline{toc}{chapter}{\MakeUppercase{Lista de Tabelas}}
+	\listoftables
+	\newpage
+
+	% ### Lista de siglas ###
+	\addcontentsline{toc}{chapter}{\MakeUppercase{Lista de Siglas}}
+	\listofacronym
+	\newpage
+
+	% ### Espacamento entre paragrafos. ###
+	\setlength{\parskip}{10pt}
+	
+	% ### Formato da numeracao de paginas ###
+	\pagenumbering{arabic}
+
+	\input{introducao.tex}
+	\input{cap1.tex}
+	\input{cap2.tex}
+	\input{conclusao.tex}
+	\newpage
+
+	% ### Referencias bibliograficas ###
+	\addcontentsline{toc}{chapter}{Refer{\^e}ncias Bibliogr{\'a}ficas}
+	\bibliographystyle{brazil}
+	\bibliography{biblio}
+
+\end{document}

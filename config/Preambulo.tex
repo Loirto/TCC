@@ -1,0 +1,75 @@
+%% PREAMBULO do arquivo
+
+\documentclass[12pt,a4paper,brazil]{report}
+\usepackage[brazil]{babel}                  % Fornece suporte para os termos na língua portuguesa do Brasil
+\usepackage[dvipdfm]{graphicx}              % Para inclusão de figuras (png, jpg, gif, bmp)
+\usepackage{graphicx,geometry,color,psfrag} % inclui figuras e trabalha com psfrag
+\usepackage{epsfig}                         % Para inclusão de figuras (eps)
+\usepackage[utf8x]{inputenc}                % Fornece suporte para caracteres especiais como acentos e cedilha
+\usepackage[T1]{fontenc}                    % Fontes para pdf de alta qualidade
+\usepackage{ae,aecompl}                     % Fontes para pdf de alta qualidade
+\usepackage{amsfonts}                       % Fontes da AMS
+\usepackage{amsmath}                        % Comandos matemáticos como /int e multiline
+\usepackage{amssymb,bbold}                  % Símbolos matemáticos providos pela AMS
+\usepackage{calc}                           % Permite realizar cáculos simples no comando \setlenght
+%\usepackage{cite}                          % Agrupar referências (conflita com natbib e hyperref)
+\usepackage{fancyhdr}                       % Cabeçalhos
+\usepackage{graphics}                       % figuras gráficas
+\usepackage{indentfirst}                    % Indenta os primeiros parágrafos
+\usepackage{latexsym}                       % Fonte symbol do LATEX
+\usepackage{makeidx}                        % Índice remissivo
+\usepackage{setspace}                       % Para a distância entre linhas
+\usepackage{tabularx}                       % Tabelas
+\usepackage{multirow}                       % Tabela com linhas divididas 
+\usepackage{float}                          % Posicionamento de figuras = opção H - coloca MESMO aqui
+%\usepackage{hyperref}                      % Insere links em dvi e pdf
+\usepackage{doipubmed}                      % inserção de links doi nas referências.     
+\usepackage[numbers,sort&compress]{natbib}  % Agrupar referências
+\usepackage{hypernat}                       % Trabalha junto do hyperref
+\usepackage[Lenny]{fncychap}                % Capítulos estilizados.
+\usepackage{psfrag}                         % Substituir strings em eps.
+\usepackage{epstopdf}                       % Converte eps para pdf se necessário.
+\usepackage{tocbibind}                      % Inseri Sumário, referências no tableofcontents.
+\usepackage{color}                          % Texto colorido
+\usepackage{ifpdf}                          % to use same .tex file for both latex & pdflatex
+%----------------------------------------------------------------
+\usepackage{type1cm}                        %
+\usepackage{eso-pic}                        % Para inserir a marca d'água
+\usepackage{color}                          %
+\usepackage{everypage}                      %
+%----------------------------------------------------------------
+% The following specifies different options to hyperref depending on
+% whether latex or pdflatex is being run.
+\ifpdf
+  \usepackage[linkcolor=black,urlcolor=black,citecolor=black,
+  plainpages=false,pdfpagelabels,breaklinks]{hyperref}
+\else
+  \usepackage[linkcolor=black,urlcolor=black,citecolor=black,
+  plainpages=false,pdfpagelabels,linktocpage]{hyperref}
+\fi
+
+%%
+%% Algumas definições globais
+%%............................................................................
+
+%% Diretório de imagens
+\graphicspath{{img/}}
+
+%% Redefinindo "labels" de tabelas e figuras
+\renewcommand{\figurename}{\small\sl Figura}
+\renewcommand{\tablename}{\small\sl Tabela}
+
+
+% Definição do cabeçalho
+\newcommand{\CabecalhoInfoCD}{
+\begin{center} 
+  \begin{tabular*}{0.99\textwidth}%{14cm}
+    {@{\extracolsep{\fill}}ll}
+    \multirow{3}{*}{\hspace{0.2cm} \includegraphics[width=4.5cm]{../img/Logo.eps}}
+    & {\Large \NomeInstituicao} \\
+    & {\Large \NomeSetor} \\
+    & {\Large \NomeDepartamento} \\
+  \end{tabular*}
+\end{center} 
+}
+

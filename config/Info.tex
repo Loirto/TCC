@@ -1,0 +1,67 @@
+%% Formatação...
+%% ............................................................................
+\setlength{\headsep}{0.2cm-\headheight}         % Distância entre texto e cabeçalho
+\pagestyle{empty}
+
+%% Dados do Autor/Orientador/dissertação
+%% ............................................................................
+  %% Linhas divisórias
+  \begin{flushright} \noindent {\small Informações Complementares} \end{flushright}
+  \begin{center}
+    \setlength{\unitlength}{1mm}
+    \begin{picture}(0,0)
+      \put(-85,10){\line(1,0){165}}
+      \put(-80,-0){\line(1,0){160}}
+      \put(-80,-1){\line(1,0){160}}
+      \put(-80,-28){\line(1,0){160}}
+    \end{picture}
+  \end{center}
+  %% Cabeçalho
+  \CabecalhoInfoCD
+  \begin{center}
+    {\LARGE    \vspace{0.7cm} {\bf \TipoDissertacao}  \\  \vspace{0.5cm} }  
+  \end{center}
+  %% Dados do Autor/Orientador/dissertação
+  \begin{center} 
+    \noindent{\small
+      {\bf Autor} \\
+      {\it\NomeAutor} \\
+      <\EmailAutor>\\
+      \href{\URLAutor}{\URLAutor}\\
+      \vspace{0.5cm}
+      \noindent {\bf Título da Dissertação}\\ 
+      {\it ``\TituloDissertacao''}\\
+      \vspace{0.5cm}
+      \noindent {\bf Orientador} \\ {\it\NomeOrientador}\\     
+      <\EmailOrientador>\\
+      \href{\URLAutor}{\URLOrientador} }
+  \end{center} 
+
+%% Dados do Programa e da defesa
+%% ............................................................................
+  %% Linhas divisórias
+    \begin{center}
+    \setlength{\unitlength}{1mm}
+    \begin{picture}(0,0)
+      \put(-75,-0){\line(1,0){145}}
+      \put(-75,-1){\line(1,0){145}}
+    \end{picture}
+  \end{center}
+  %% Dados do Programa
+  {\small \noindent
+    \hspace*{0.5cm} {\bf \NomePrograma}\\
+    \hspace*{0.5cm} {\bf \EnderecoPrograma}\\
+    \hspace*{0.5cm} {\bf Fone/Fax:} \FoneFaxPrograma\\
+    \hspace*{0.5cm} {\bf E-mail:} \EmailPrograma\\
+    \hspace*{0.5cm} {\bf URL:} \href{\URLPrograma}{\URLPrograma}
+    %% Dados da Defesa
+    \begin{center}
+      \noindent{\bf Defesa Realizada em \DataDefesa{} - Membros da Banca}\\
+      \vspace{0.3cm}
+      {\it \NomeOrientador} (orientador - presidente)\\
+      {\it \MembrosBancaDefesa}
+    \end{center}
+}  
+  %% Nota de copyright
+  {\scriptsize \FisuxCopyright}
+

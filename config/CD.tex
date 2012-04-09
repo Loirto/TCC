@@ -1,0 +1,92 @@
+%% Customizando as páginas: baseado no arquivo abnt.cls (1in=2.54cm)
+%% A ordem dos comandos é importante!
+%%............................................................................
+\setlength{\parindent}{0cm}                   % Tamanho da indentação do parágrafo
+\setlength{\parskip}{.25cm}                     % Distância entre parágrafos
+\renewcommand{\baselinestretch}{1.1}           % Espaço duplo
+\setlength{\headsep}{0cm-\headheight}         % Distância entre texto e cabeçalho
+\setlength{\topmargin}{1cm-1in-\voffset}        % Margem Superior
+\setlength{\textheight}% 
+{\paperheight-\topmargin-\voffset-1in-\headheight-\headsep-2.2cm}       % Altura do texto
+\setlength{\oddsidemargin}{5cm-\hoffset-1in}    % Margens: esquerda=3cm, direita=2cm 
+\setlength{\evensidemargin}{2cm-\hoffset-1in}   % Margens para impressão frente e verso
+\setlength{\textwidth}{\paperwidth-\oddsidemargin-\evensidemargin}   % Largura do texto
+\addtolength{\headheight}{\baselineskip}        % Ajuste da linha de cabeçalho com o texto
+\pagestyle{empty}
+
+%% Capa do CD 
+%% ............................................................................
+\begin{minipage}{14.cm}
+  %% Linhas divisórias
+  \begin{flushright} \noindent {\small Capa do CD - Recorte aqui!} \end{flushright}
+  \begin{center}
+    \setlength{\unitlength}{1mm}
+    \begin{picture}(0,0)
+      \put(-90,9){\line(1,0){160}}
+      \put(-70,-0){\line(1,0){140}}
+      \put(-70,-1){\line(1,0){140}}
+      \put(-70,-28){\line(1,0){140}}
+      \put(-70,-97){\line(1,0){140}}
+      \put(-70,-99){\line(1,0){140}}
+      \put(-90,-109){\line(1,0){160}}
+    \end{picture}
+  \end{center}
+  %% Cabeçalho
+  \CabecalhoInfoCD
+  \begin{center}
+    {\LARGE    \vspace{0.3cm} {\bf \TipoDissertacao}  \\   }  
+  \end{center}
+  %% Dados do Autor/Orientador/dissertação
+  \begin{center} 
+    \noindent{\small
+      {\bf Autor} \\
+      {\it\NomeAutor} \\
+      <\EmailAutor>\\
+      \href{\URLAutor}{\URLAutor}\\
+      \vspace{0.4cm}
+      \noindent {\bf Orientador} \\ {\it\NomeOrientador}\\
+      \vspace{0.4cm}
+      \noindent {\bf Título da Dissertação}\\ 
+      {\it ``\TituloDissertacao''}\\
+    }
+  \end{center} 
+\end{minipage}
+\vspace{3cm}
+
+
+%% Contra-capa do CD 
+%% ............................................................................
+\begin{minipage}{14.cm}  
+  %% Linhas divisórias
+  \begin{flushright}\noindent {\small Contra-capa do CD - Recorte aqui!} \end{flushright}
+  \begin{center}
+    \setlength{\unitlength}{1mm}
+    \begin{picture}(0,0)
+      \put(-90,9){\line(1,0){160}}
+      \put(-70,-0){\line(1,0){140}}
+      \put(-70,-1){\line(1,0){140}}
+      \put(-70,-97){\line(1,0){140}}
+      \put(-70,-99){\line(1,0){140}}
+      \put(-90,-109){\line(1,0){160}}
+    \end{picture}
+  \end{center}
+  %% Dados do Programa
+  {\small
+    \hspace{0.5cm} {\bf \NomePrograma}\par
+    \hspace{0.5cm} {\bf \EnderecoPrograma}\par
+    \hspace{0.5cm} {\bf Fone/Fax:} \FoneFaxPrograma\par
+    \hspace{0.5cm} {\bf E-mail:} \EmailPrograma\par
+    \hspace{0.5cm} {\bf URL:} \href{\URLPrograma}{\URLPrograma}
+    %% Dados da Defesa
+    \vspace{0.5cm}
+    \begin{center}
+      \noindent{\bf Defesa Realizada em \DataDefesa{} - Membros da Banca}\\
+      \vspace{0.3cm}
+      {\it \NomeOrientador} (orientador - presidente)\\
+      {\it \MembrosBancaDefesa}
+    \end{center}
+  }
+  %% Nota de copyright
+  {\tiny \FisuxCopyright}
+\end{minipage}
+

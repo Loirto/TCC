@@ -1,0 +1,78 @@
+
+%%====================================================================================
+%%
+%% Arquivo principal
+%%
+%%====================================================================================
+
+%%
+%% Incluindo o Preâmbulo e definições globais...
+%%............................................................................
+\include{config/Preambulo}                          %%  Definições Gerais 
+\include{config/ABNT}                               %%  Formatação ABNT   
+\include{config/TCCInfo}                            %%  Dados da monografia
+
+%%
+%% Começo do documento LaTex
+%%............................................................................
+\begin{document}
+
+\pagenumbering{roman}
+%%
+%% Incluindo formatação da capa...
+%%............................................................................
+\include{config/Capa}                               %% Define a formatação da capa da dissertação
+
+%%
+%% Incluindo formatação da dedicatória...
+%%............................................................................
+\include{config/Dedicatoria}                        %% Define a formatação da dedicatória da dissertação
+
+%%
+%% Incluindo formatação dos agradecimentos...
+%%............................................................................
+\include{config/Agradecimentos}                     %% Define a formatação do agradecimentos da dissertação
+
+%%
+%% Incluindo formatação do resumo/abstract...
+%%............................................................................
+\include{capitulos/resumo}                          %% Incluindo o resumo de fato
+\include{config/Resumo}                             %% Define a formatação do resumo da dissertação
+
+%%
+%% Incluindo formatação do resumo/abstract...
+%%............................................................................
+\include{capitulos/abstract}                        %% Incluindo o abstract de fato
+\include{config/Abstract}                           %% Define a formatação do abstract da dissertação
+
+%%
+%% Incluindo a formatação do Sumário...
+%%............................................................................
+\include{config/Sumario}                            %% Define a formatação do sumário
+
+%%
+%% Incluindo a formatação dos Capítulos...
+%%............................................................................
+\include{config/Capitulos}                          %% Define a formatação dos capítulos
+\Capitulos                                          %% Incluindo os Capítulos de fato
+
+%%
+%% Incluindo apêndices
+%%............................................................................
+\appendix
+\Apendices                       %% Incluindo os Capítulos de fato
+
+%%
+%% Incluindo referências bibliográficas...
+%%............................................................................
+\include{config/Bibliografia}          %% Define a formatação da bibliografia
+
+%%
+%% FIM DO DOCUMENTO LATEX
+%%............................................................................
+\end{document}
+
+
+%% THESIS
+%% Copyright © 2008-2011  FISUX Group - <http://www.fisux.org> - <contact@fisux.org>
+

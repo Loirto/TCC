@@ -1,0 +1,108 @@
+%%============================================================================
+%%  Dados da Instituição de Ensino
+%%............................................................................
+
+%% Nome da Instituição de Ensino
+%%............................................................................
+\newcommand{\NomeInstituicao}{Universidade Federal do Paraná}
+
+%% Nome do Setor
+%%............................................................................
+\newcommand{\NomeSetor}{Setor de Ciências Exatas}
+
+%% Nome do Departamento
+%%............................................................................
+\newcommand{\NomeDepartamento}{Departamento de Informática}
+
+%% Nome do Curso
+%%............................................................................
+\newcommand{\NomeCurso}{Ciência da Computação}
+
+%%============================================================================
+%%  Dados do Autor/Orientador
+%%............................................................................
+
+%% Nome do Aluno Autor da Monografia 
+%%............................................................................
+\newcommand{\NomeAutorA}{Loirto Alves dos Santos}
+\newcommand{\NomeAutorB}{Luiz Henrique Pires de Camargo}
+
+
+%% Nome do Professor Orientador.
+\newcommand{\NomeOrientador}{{ Prof. Dr.} Bruno Müller Junior}
+
+%%============================================================================
+%%  Dados da Monografia
+%%............................................................................
+
+%% Título da monografia
+%%............................................................................
+\newcommand{\TituloMonografia}{Vírus de computador}
+\newcommand{\SubTituloMonografia}{Uma abordagem do código polimórfico}
+
+%% Data da Defesa
+%%............................................................................
+ \newcommand{\DataDefesa}{XX/XX/XXXX}
+
+%% Banca de Defesa
+%% Relacione os nomes dos professores da sua banca de defesa
+%% Coloque um nome por linha e um \\ no final de cada linha
+%%............................................................................
+ \newcommand{\MembrosBancaDefesa}{
+   Prof. Dr. Nome do membro da banca (ESTADO)\\
+   Prof. Dr. Nome do membro da banca (ESTADO)\\
+}
+
+%% Nome da Cidade e UF do Local onde a monografia foi Apresentada/Defendida. 
+%%............................................................................
+\newcommand{\LocalMonografia}{Curitiba - PR}
+
+%% Ano da Apresentação/Defesa da Dissertação.
+%%............................................................................
+\newcommand{\AnoMonografia}{2012}
+
+%% Nota de Apresentação da Capa. 
+%% Pequeno resumo informando a natureza e o propósito desta dissertação
+%%............................................................................
+\newcommand{\NotaCapa}{
+    Monografia apresentada junto ao curso de {\NomeCurso}, do 
+    {\NomeDepartamento}, do {\NomeSetor}, como requisito parcial para a 
+    obtenção do título de Bacharel.\\
+
+    {\footnotesize {\bf Orientador:} {\NomeOrientador}}
+}
+
+%% Dedicatória
+%%............................................................................
+\newcommand{\Dedicatoria}{
+A nossos pais. Sem eles nada disso teria sentido.
+}
+
+%% Agradecimentos
+%% Inicie cada nova linha de agradecimento com \item
+%%............................................................................
+\newcommand{\Agradecimentos}{\begin{itemize}
+\item A Deus
+\item A nosso esforço e dedicação que, apesar de serem poucos, nos valeram muito.
+\item Aos professores pela paciência e dedicação
+\end{itemize}
+}
+
+%% Capítulos da Dissertação
+%% Caminho/Nome de cada arquivo que compõe os capítulos
+%%............................................................................
+\newcommand{\Capitulos}{
+\include{capitulos/introducao}
+\include{capitulos/cap1}
+\include{capitulos/cap2}
+\include{capitulos/conclusao}  
+}
+
+%% Apêndices da Monografia
+%% Caminho/Nome dos apêndices
+%%............................................................................
+\newcommand{\Apendices}{
+\include{capitulos/apendice-A}    
+\include{capitulos/apendice-B}    
+}
+
