@@ -1,2 +1,15 @@
-*.pdf *.bib *.log *.dvi *.aux *.out *.loa *.lof *.toc *.lot *~ 
+*.pdf 
+*.bib 
+*.log 
+*.dvi 
+*.aux 
+*.out 
+*.loa 
+*.lof 
+*.toc 
+*.lot 
+*.log
+*~ 
+capitulos/*.aux
+config/*.aux
 
