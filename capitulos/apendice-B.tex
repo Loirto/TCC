@@ -3,16 +3,15 @@
 
 \section{Arquivo PE}
 
-
-\paragraph{O formato de arquivo PE (Portable Executable Format File) é o último
-utilizado para plataforma Microsoft.}
+O formato de arquivo PE (Portable Executable Format File) é o último
+utilizado para plataforma Microsoft.
 
 
 \subsection{Estrutura de arquivo PE.}
 \begin{list}{}
-\item [{\begin{tabular}{|l|c|}
+\item {\begin{tabular}{|l|c|}
 \hline 
-DOS 2 - Cabeçalho EXE compativel  & \tabularnewline
+DOS 2 - Cabeçalho EXE compatível  & \tabularnewline
 \cline{1-1} 
 Não utilizado  & \tabularnewline
 \cline{1-1} 
@@ -35,164 +34,164 @@ Image Pages  & \tabularnewline
 · Info de recursos & \tabularnewline
 · Info de debug & \tabularnewline
 \hline
-\end{tabular}}]~
+\end{tabular}}
 \end{list}
 
 \subsection{PE - Cabeçalho}
 
 
-\paragraph{Temos no cabeçalho uma estrutura dividida em campos com palavras
-de 4 bytes, enfatizamos alguns deles abaixo:}
+Temos no cabeçalho uma estrutura dividida em campos com palavras
+de 4 bytes, enfatizamos alguns deles abaixo:
 
 
-\subparagraph{Tipo de CPU: o campo informa qual o tipo de CPU para a qual o executavel
-foi projetado.}
+Tipo de CPU: o campo informa qual o tipo de CPU para a qual o executavel
+foi projetado.
 
 
-\subparagraph{Número de Seções: o campo informa o número de entradas na tabela
-de seções.}
+Número de Seções: o campo informa o número de entradas na tabela
+de seções.
 
 
-\subparagraph{Marca de Tempo/Data: Armazena a data de criação ou modificação do
-arquivo.}
+Marca de Tempo/Data: Armazena a data de criação ou modificação do
+arquivo.
 
 
-\subparagraph{Flags: Bits para informar qual o tipo de arquivo ou quando há erros
-em sua estrutura.}
+Flags: Bits para informar qual o tipo de arquivo ou quando há erros
+em sua estrutura.
 
 
-\subparagraph{LMAJOR/LMINOR: maior e menor versao do linkador para o executável.}
+LMAJOR/LMINOR: maior e menor versao do linkador para o executável.
 
 
-\subparagraph{Seção de alinhamento: O valor de alinhamento das seções. Deve ser
-múltiplo de 2 dentre 512 e 256M. O valor padrão é 64K.}
+Seção de alinhamento: O valor de alinhamento das seções. Deve ser
+múltiplo de 2 dentre 512 e 256M. O valor padrão é 64K.
 
 
-\subparagraph{OS MAJOR/MINOR = Versões limitantes (maior e menor) do sistema operacional.}
+OS MAJOR/MINOR = Versões limitantes (maior e menor) do sistema operacional.
 
 
-\subparagraph{Tamanho da Imagem: Tamanho virtual da imagem, contando todos os cabeçalhos.
-E o tamanho total deve ser multiplo da seção de alinhamento.}
+Tamanho da Imagem: Tamanho virtual da imagem, contando todos os cabeçalhos.
+E o tamanho total deve ser multiplo da seção de alinhamento.
 
 
-\subparagraph{Tamanho do Cabeçalho: Tamanho total do cabeçalho. O tamanho combinado
-de cabeçalho do DOS, cabeçalho do PE e a tabela de seções.}
+Tamanho do Cabeçalho: Tamanho total do cabeçalho. O tamanho combinado
+de cabeçalho do DOS, cabeçalho do PE e a tabela de seções.
 
 
-\subparagraph{FILE CHECKSUM: Checksum do arquivo em si, é setado como 0 pelo linkador.}
+FILE CHECKSUM: Checksum do arquivo em si, é setado como 0 pelo linkador.
 
 
-\subparagraph{Flags de DLL: Indica qual o tipo de leitura que deve ser feita, processos
-de inicialização e terminação de leitura e de threads.}
+Flags de DLL: Indica qual o tipo de leitura que deve ser feita, processos
+de inicialização e terminação de leitura e de threads.
 
 
-\subparagraph{Tamanho reservado da pilha: tamanho de pilha reservado ao programa,
+Tamanho reservado da pilha: tamanho de pilha reservado ao programa,
 o valor real é o valor efetivo, se o valor reservado não tiver no
-sistema ele será paginado.}
+sistema ele será paginado.
 
 
-\subparagraph{Tamanho efetivo da pilha: tamanho efetivo.}
+Tamanho efetivo da pilha: tamanho efetivo.
 
 
-\subparagraph{Tamanho Reservado da HEAP: Tamanho reservado a HEAP.}
+Tamanho Reservado da HEAP: Tamanho reservado a HEAP.
 
 
-\subparagraph{Tamanho efetivo da HEAP: Valor efetivo para a HEAP.}
+Tamanho efetivo da HEAP: Valor efetivo para a HEAP.
 
 
 \subsection{Tabela de Seções}
 
 
-\subsubsection*{O número de entradas da tabela de seções e dado pelo campo de número
+O número de entradas da tabela de seções e dado pelo campo de número
 de seções que está no cabeçalho. A entradas se iniciam em 1. Segue
 imediatamente o cabeçalho do PE. A ordem de dados e memória é selecionado
 pelo ligador. Os endereços virtuais para s seções são confirmados
 pelo ligador de forma crescente e adjacente, e devem sem multiplos
 da Seção de alinhamento, que também é fornecida no cabeçalho do PE.
 Abaixo alguns de uma seção nesta tabela, divididos em palavras de
-8 bytes:}
+8 bytes:
 
 
-\subparagraph*{Nome da Seção: Campo com 8 bytes nulos para representar o nome da
-seção em ASCII.}
+Nome da Seção: Campo com 8 bytes nulos para representar o nome da
+seção em ASCII.
 
 
-\subparagraph*{Tamanho virtual: O tamanho virtual é o alocado quando a seção é lida.}
+Tamanho virtual: O tamanho virtual é o alocado quando a seção é lida.
 
 
-\subparagraph*{Tamanho físico: O tamanho de dados inicializado no arquivo para a
+Tamanho físico: O tamanho de dados inicializado no arquivo para a
 seção. É multiplo do campo de alinhamento do arquivo do cabeçalho
-do PE e deve ser menor ou igual ao tamanho virtual.}
+do PE e deve ser menor ou igual ao tamanho virtual.
 
 
-\subparagraph*{Offset físico: Offset para apntar a primeira página da seção. É relativo
-ao inicio do arquivo executavel.}
+Offset físico: Offset para apntar a primeira página da seção. É relativo
+ao inicio do arquivo executavel.
 
 
-\subparagraph*{Flags da seção: Flags para sinalizar se a seção é de código, se está
+Flags da seção: Flags para sinalizar se a seção é de código, se está
 inicializada ou não, se deve ser armazezada, compartilhada, paginável,
-de leitura ou para escrita.}
+de leitura ou para escrita.
 
 
 \subsection{Páginas de imagem}
 
 
-\paragraph{A página de imagens contém todos os dados inicializados e todas as
+A página de imagens contém todos os dados inicializados e todas as
 seções. As seções são ordenadas pelo endereço virtual reservado a
 elas. o Offset que aponta para a primeira página é especificado na
 tabela de seções como visto na subseção acima. Cada seção inicia com
-um multiplo da seção de alinhamento.}
+um multiplo da seção de alinhamento.
 
 
 \subsection{Importação}
 
 
-\paragraph{A informação de importação inicia com uma tabela de diretórios de
+A informação de importação inicia com uma tabela de diretórios de
 importação que descreve a parte principal da informação de importação.
 A tabela de diretórios de importação contém informação de endereços
 que são utilizados nas referencias de correção para pontos de entrada
 com uma DLL. A tabela de diretórios de importação consiste de um vetor
 de entradas de diretórios, uma entrada para cada referencia a DLL.
-A última entrada é nula o que indica o fim da tabela de diretórios.}
+A última entrada é nula o que indica o fim da tabela de diretórios.
 
 
 \subsection{Exportação}
 
 
-\paragraph*{A informaçãode exportação inicia com a tablela de diretórios de exportação
+A informaçãode exportação inicia com a tablela de diretórios de exportação
 que descreve a parte principal da informação de exportação. A tabela
 de diretórios de exportação contém informação de endereços que são
 utilizados nas referencias de correção para os pontos de entrada desta
-imagem.}
+imagem.
 
 
 \subsection{Correção}
 
 
-\paragraph*{A tabela de correção contém todas as entradas de correção da imagem.
+A tabela de correção contém todas as entradas de correção da imagem.
 O tamanho total de dados de correção no cabeçalho é o número de bytes
 na tabela de correção. A tabela de correção é dividida em blocos de
 correção. Cada bloco representa as correções para um página de 4K
 bytes. Correções que são resolvidados pelo ligador necessitam ser
 processadas pelo carregador, a menos que a imagem não possa ser carregada
-na Base de imagens especificada no cabeçalho do PE.}
+na Base de imagens especificada no cabeçalho do PE.
 
 
 \subsection{Recursos}
 
 
-\paragraph*{Recursos são indexados por uma arvore binária ordenada. O design
+Recursos são indexados por uma arvore binária ordenada. O design
 como um todo pode chegar a $2^{31}$ nivéis, entretanto, NT utiliza
 somente 3 niveis: o mais alto com o \emph{tipo}, no subsequente \emph{nome},
-depois a \emph{língua}.}
+depois a \emph{língua}.
 
 
 \subsection{Debug}
 
 
-\paragraph*{A informação de debug é definido por um debugador que não é controlado
+A informação de debug é definido por um debugador que não é controlado
 pelo PE ou pelo ligador. Somente é definido pelo PE os dados da tabela
-de diretório de debug.}
+de diretório de debug.
 
 
 \section{Arquivo ELF}
