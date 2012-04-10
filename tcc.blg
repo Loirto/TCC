@@ -12,11 +12,12 @@ A level-1 auxiliary file: config/Capitulos.aux
 A level-1 auxiliary file: capitulos/introducao.aux
 A level-1 auxiliary file: capitulos/cap1.aux
 A level-1 auxiliary file: capitulos/cap2.aux
+A level-1 auxiliary file: capitulos/cap3.aux
 A level-1 auxiliary file: capitulos/conclusao.aux
-A level-1 auxiliary file: capitulos/apendice-A.aux
-A level-1 auxiliary file: capitulos/apendice-B.aux
 A level-1 auxiliary file: config/Bibliografia.aux
 The style file: config/BibStyle.bst
+A level-1 auxiliary file: capitulos/apendice-A.aux
+A level-1 auxiliary file: capitulos/apendice-B.aux
 Database file #1: capitulos/bibliografia.bib
 Warning--missing publisher in ghorayeb
 Warning--empty booktitle in besl1
@@ -27,7 +28,7 @@ Warning--empty booktitle in hennessy
 Warning--empty booktitle in braunl
 You've used 67 entries,
             2452 wiz_defined-function locations,
-            899 strings with 14858 characters,
+            900 strings with 14876 characters,
 and the built_in function-call counts, 28168 in all, are:
 = -- 1923
 > -- 622
