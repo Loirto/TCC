@@ -17,47 +17,53 @@ A level-1 auxiliary file: capitulos/apendice-A.aux
 A level-1 auxiliary file: capitulos/apendice-B.aux
 A level-1 auxiliary file: config/Bibliografia.aux
 The style file: config/BibStyle.bst
-I found no \citation commands---while reading file tcc.aux
 Database file #1: capitulos/bibliografia.bib
-You've used 0 entries,
+Warning--missing publisher in ghorayeb
+Warning--empty booktitle in besl1
+Warning--empty booktitle in gonzalez
+Warning--empty booktitle in jain
+Warning--empty booktitle in shapiro
+Warning--empty booktitle in hennessy
+Warning--empty booktitle in braunl
+You've used 67 entries,
             2452 wiz_defined-function locations,
-            557 strings with 5085 characters,
-and the built_in function-call counts, 36 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
+            899 strings with 14858 characters,
+and the built_in function-call counts, 28168 in all, are:
+= -- 1923
+> -- 622
+< -- 28
++ -- 252
+- -- 185
+* -- 1538
+:= -- 2967
+add.period$ -- 196
+call.type$ -- 67
+change.case$ -- 2
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 74
+duplicate$ -- 3019
+empty$ -- 3075
+format.name$ -- 247
+if$ -- 6314
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 12
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 67
+missing$ -- 775
+newline$ -- 342
+num.names$ -- 67
+pop$ -- 1443
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 1
+skip$ -- 792
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 1337
+swap$ -- 1815
+text.length$ -- 28
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 11
-(There was 1 error message)
+warning$ -- 7
+while$ -- 184
+width$ -- 69
+write$ -- 732
+(There were 7 warnings)
