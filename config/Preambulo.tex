@@ -26,7 +26,7 @@
 \usepackage{doipubmed}                      % inserção de links doi nas referências.     
 \usepackage[numbers,sort&compress]{natbib}  % Agrupar referências
 \usepackage{hypernat}                       % Trabalha junto do hyperref
-\usepackage[Lenny]{fncychap}                % Capítulos estilizados.
+\usepackage[Bjornstrup]{fncychap}           % Capítulos estilizados.
 \usepackage{psfrag}                         % Substituir strings em eps.
 \usepackage{epstopdf}                       % Converte eps para pdf se necessário.
 \usepackage{tocbibind}                      % Inseri Sumário, referências no tableofcontents.
@@ -53,6 +53,10 @@
 %% Algumas definições globais
 %%............................................................................
 
+%% Fonte "Arial"
+\renewcommand{\rmdefault}{phv} 
+\renewcommand{\sfdefault}{phv} 
+
 %% Diretório de imagens
 \graphicspath{{img/}}
 
@@ -60,6 +64,16 @@
 \renewcommand{\figurename}{\small\sl Figura}
 \renewcommand{\tablename}{\small\sl Tabela}
 
+%% Página de apêndice
+\let\plainappendixpage\appendixpage
+\makeatletter
+\renewcommand{\appendixpage}{%
+  \begingroup
+  \let\ps@plain\ps@empty
+  \plainappendixpage
+  \endgroup}
+\makeatother
+\renewcommand*\appendixpagename{\Large Apêndices}
 
 % Definição do cabeçalho
 \newcommand{\CabecalhoInfoCD}{
