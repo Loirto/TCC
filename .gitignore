@@ -8,6 +8,8 @@
 *.toc 
 *.lot 
 *.log
+*.bbl
+*.blg
 *~ 
 capitulos/*.aux
 config/*.aux

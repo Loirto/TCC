@@ -1,6 +1,7 @@
 This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: tcc.aux
 A level-1 auxiliary file: config/Capa.aux
+A level-1 auxiliary file: config/Rosto.aux
 A level-1 auxiliary file: config/Dedicatoria.aux
 A level-1 auxiliary file: config/Agradecimentos.aux
 A level-1 auxiliary file: capitulos/resumo.aux
@@ -19,52 +20,44 @@ The style file: config/BibStyle.bst
 A level-1 auxiliary file: capitulos/apendice-A.aux
 A level-1 auxiliary file: capitulos/apendice-B.aux
 Database file #1: capitulos/bibliografia.bib
-Warning--missing publisher in ghorayeb
-Warning--empty booktitle in besl1
-Warning--empty booktitle in gonzalez
-Warning--empty booktitle in jain
-Warning--empty booktitle in shapiro
-Warning--empty booktitle in hennessy
-Warning--empty booktitle in braunl
-You've used 67 entries,
+You've used 2 entries,
             2452 wiz_defined-function locations,
-            900 strings with 14876 characters,
-and the built_in function-call counts, 28168 in all, are:
-= -- 1923
-> -- 622
-< -- 28
-+ -- 252
-- -- 185
-* -- 1538
-:= -- 2967
-add.period$ -- 196
-call.type$ -- 67
-change.case$ -- 2
+            573 strings with 5406 characters,
+and the built_in function-call counts, 528 in all, are:
+= -- 27
+> -- 8
+< -- 0
++ -- 4
+- -- 2
+* -- 19
+:= -- 57
+add.period$ -- 5
+call.type$ -- 2
+change.case$ -- 1
 chr.to.int$ -- 0
-cite$ -- 74
-duplicate$ -- 3019
-empty$ -- 3075
-format.name$ -- 247
-if$ -- 6314
+cite$ -- 2
+duplicate$ -- 56
+empty$ -- 70
+format.name$ -- 2
+if$ -- 116
 int.to.chr$ -- 0
-int.to.str$ -- 67
-missing$ -- 775
-newline$ -- 342
-num.names$ -- 67
-pop$ -- 1443
+int.to.str$ -- 2
+missing$ -- 15
+newline$ -- 21
+num.names$ -- 2
+pop$ -- 38
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 792
+skip$ -- 16
 stack$ -- 0
-substring$ -- 1337
-swap$ -- 1815
-text.length$ -- 28
+substring$ -- 2
+swap$ -- 25
+text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 7
-while$ -- 184
-width$ -- 69
-write$ -- 732
-(There were 7 warnings)
+warning$ -- 0
+while$ -- 2
+width$ -- 3
+write$ -- 30
