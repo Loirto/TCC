@@ -16,48 +16,48 @@ A level-1 auxiliary file: capitulos/cap2.aux
 A level-1 auxiliary file: capitulos/cap3.aux
 A level-1 auxiliary file: capitulos/conclusao.aux
 A level-1 auxiliary file: config/Bibliografia.aux
-The style file: config/BibStyle.bst
+The style file: config/brazil.bst
 A level-1 auxiliary file: capitulos/apendice-A.aux
 A level-1 auxiliary file: capitulos/apendice-B.aux
 Database file #1: capitulos/bibliografia.bib
-You've used 2 entries,
-            2452 wiz_defined-function locations,
-            573 strings with 5406 characters,
-and the built_in function-call counts, 528 in all, are:
-= -- 27
-> -- 8
+You've used 3 entries,
+            2133 wiz_defined-function locations,
+            540 strings with 4935 characters,
+and the built_in function-call counts, 774 in all, are:
+= -- 65
+> -- 37
 < -- 0
-+ -- 4
-- -- 2
-* -- 19
-:= -- 57
-add.period$ -- 5
-call.type$ -- 2
-change.case$ -- 1
++ -- 16
+- -- 12
+* -- 42
+:= -- 134
+add.period$ -- 11
+call.type$ -- 3
+change.case$ -- 14
 chr.to.int$ -- 0
-cite$ -- 2
-duplicate$ -- 56
-empty$ -- 70
-format.name$ -- 2
-if$ -- 116
+cite$ -- 3
+duplicate$ -- 26
+empty$ -- 73
+format.name$ -- 12
+if$ -- 161
 int.to.chr$ -- 0
-int.to.str$ -- 2
-missing$ -- 15
-newline$ -- 21
-num.names$ -- 2
-pop$ -- 38
+int.to.str$ -- 3
+missing$ -- 2
+newline$ -- 18
+num.names$ -- 6
+pop$ -- 28
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 12
 quote$ -- 0
-skip$ -- 16
+skip$ -- 24
 stack$ -- 0
-substring$ -- 2
-swap$ -- 25
+substring$ -- 16
+swap$ -- 3
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
+type$ -- 10
 warning$ -- 0
-while$ -- 2
-width$ -- 3
-write$ -- 30
+while$ -- 6
+width$ -- 4
+write$ -- 32

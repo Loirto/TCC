@@ -1,25 +1,21 @@
 \begin{thebibliography}{1}
-\providecommand{\url}[1]{\texttt{#1}}
-\providecommand{\urlprefix}{URL }
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
-  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
-  \urlstyle{rm}\Url}\fi
-\input{config/babelbst.tex}
-\newcommand{\Capitalize}[1]{\uppercase{#1}}
-\newcommand{\capitalize}[1]{\expandafter\Capitalize#1}
-\providecommand{\eprint}[2][]{\href{http://arxiv.org/abs/#2}{arXiv:#2}}
+
+\bibitem{rfc2764}
+B.~Gleeson, A.~Lin, J.~Heinanen, e G.~Armitage.
+\newblock {A framework for IP based virtual private networks. ARPA RFC - 2764}.
+\newblock \url{http://citeseer.nj.nec.com/gleeson00framework.html}, agosto de
+  1998.
 
 \bibitem{Szor}
-P.~Szor.
-\newblock \emph{The Art of Computer Virus Research and Defense} (Addison Wesley
-  Professional, 2005).
+Peter Szor.
+\newblock {\em The Art of Computer Virus Research and Defense}.
+\newblock Addison Wesley Professional, fevereiro de 2005.
 
 \bibitem{wiki:1}
 Wikipedia.
-\newblock Computer virus --- Wikipedia, The Free Encyclopedia (2012).
-\newblock [Online; acessado em 11-Abr-2012],
-  \urlprefix\url{http://en.wikipedia.org/w/index.php?title=Computer_virus&oldi%
-d=486444876}.
+\newblock {Computer virus --- Wikipedia, The Free Encyclopedia}, 2012.
+\newblock [Online; acessado em 11-Abr-2012].. Disponível em {\small
+  \url{http://en.wikipedia.org/w/index.php?title=Computer_virus&oldid=48644487%
+6}}.
 
 \end{thebibliography}
