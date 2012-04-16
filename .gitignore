@@ -1,3 +1,4 @@
+*.bak
 *.bib 
 *.log 
 *.dvi 
@@ -13,4 +14,4 @@
 *~ 
 capitulos/*.aux
 config/*.aux
-
+literatura
