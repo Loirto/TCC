@@ -6,6 +6,12 @@ Um exemplo desta época é o vírus de boot-sector \textbf{Stoned}\footnote{http
 
 Algumas versões de vírus de boot sector eram um pouco mais inteligentes e assumiam controle da função de leitura de disco do BIOS. Assim, ao detectar que algum software estava tentando ler o boot sector, ele carregava a cópia original fazendo com que o anti-vírus não suspeitasse da existência da infecção. Logo, os desenvovedores de anti-vírus perceberam esta manobra e começaram a vasculhar a memória RAM do computador em busca de assinaturas de vírus e não mais somente em disco.
 
-Também começaram a surgir cada vez mais vírus e a detecção por assinatura somente não estava mais dando certo pois novas variações do mesmo vírus tinham assinaturas diferentes. Por exemplo, o Stoned mencionado anteriormente teve muitas variações e buscar pela assinatura original não detectava mais o vírus pois a mensagem foi modificada. Então as empresas de anti-vírus começaram a desenvolver algorítmos que analisavam o código a fim de detectar certos padrões de execução (chamado código malicioso) que identificavam por certo um código que não deveria ser executado.
+Também começaram a surgir cada vez mais vírus e a detecção por assinatura somente não estava mais dando certo pois novas variações do mesmo vírus tinham assinaturas diferentes. Por exemplo, o Stoned mencionado anteriormente teve muitas variações e buscar pela assinatura original não detectava mais o vírus pois a mensagem foi modificada. Então as empresas de anti-vírus começaram a desenvolver algorítmos que analisavam o código a fim de detectar certos padrões de execução (chamado código malicioso) que identificavam por certo um código que não deveria ser executado, utilizando análise heurística\footnote{http://en.wikipedia.org/w/index.php?title=Heuristic\_analysis\&oldid=529072201} \footnote{http://forums.avg.com/pt-pt/avg-forums?sec=thread\&act=show\&id=371}.
 
-Então, os desenvolvedores de vírus perceberam que para evitar a detecção deveriam modificar a aparẽncia do código. Foi assim que surgiram os vírus polimórficos.
+Então, os desenvolvedores de vírus perceberam que para evitar a detecção deveriam modificar a aparência do código. Foi assim que surgiram os vírus polimórficos.
+
+\section{As partes do vírus polimórfico}
+
+\section{Protegendo a rotina de decriptografia}
+
+\section{Polimorfismo em linguagens interpretadas}
