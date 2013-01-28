@@ -1,1 +1,223 @@
-\chapter{Descrição conceitual do trabalho}
+\chapter{Polimorfismo}
+
+\section{O que é o polimorfismo?}
+
+	Segundo o dicionário Aurélio\footnote{http://www.dicionariodoaurelio.com/}\\
+\textbf{Polimorfismo}. s.m. Qualidade do que é polimorfo.\\
+\textbf{Polimorfo}. adj. Que é sujeito a mudar de forma. Que se apresenta sob diversas formas.
+
+
+O polimorfismo está diretamente ligado à criptografia. O principal objetivo de um código polimórfico é que duas versões não tenham nada em comum visualmente, evitando assim que o conteúdo seja facilmente identificável e associado à sua verdadeira função. 
+
+\subsection{Polimorfismo usado de forma legal}
+Quando se ouve falar em código polimórfico, a primeira associação que se faz é com vírus de computador. No entanto, existem diversas aplicações legais do código polimórfico.
+
+Empresas que desenvolvem código de proteção contra cópia ilegal de software usam código polimórfico para dificultar a engenharia reversa do software de proteção e do software protegido visando dificultar o trabalho de crackers que criam patches para fazer com que o software pense que está registrado legalmente\footnote{Exemplos: http://www.webtoolmaster.com/packer.htm e http://www.pelock.com/products/pelock}. Atualmente, todas as empresas de proteção contra cópia usam polimorfismo juntamente com compactação de dados e técnicas anti-debugging para proteger o software. Alguns usam também códigos metamórficos. O código metamórfico difere do polimórfico por usar técnicas de recompilação/reconstrução fazendo com que cada versão seja única não somente na aparência mas também no código binário executável.
+
+Outro uso legal do código polimórfico seria para gerar uma marca digital do software, pois cada versão seria única tornando possível assim dizer quem é o dono da versão que está em circulação no caso de haver alguma cópia ilegal. A indústria fonográfica já usa algo semelhante a isso nas músicas\footnote{http://en.wikipedia.org/wiki/Digital\_watermarking} com a finalidade de descobrir quem disponibilizou cópias ilegais. O mais importante é que esta medida não altera em nada a qualidade do áudio, passando totalmente despercebida pelo usuário. Também é usado este artifício em máquinas fotográficas e dispositivos de gravação. Cada dispositivo possui sua marca digital única fazendo assim sua 'assinatura' em cada foto ou filme produzidos pelo dispositivo.
+
+\subsection{Como funciona?}
+
+Um código polimórfico exige no mínimo duas partes: a rotina de encriptação e a rotina de decriptação. A criptografia pode ser algo super simples ou algo muito complexo.
+
+Exemplo: 
+
+A função lógica $ \oplus $ (ou exclusivo) faz a combinação binária
+
+\begin{tabular}{|c|c|c|c|}
+\hline 
+A&B&C = A$ \oplus $B&C$ \oplus $B\\
+\hline
+0&0&0&0\\
+0&1&1&0\\
+1&0&1&1\\
+1&1&0&1\\
+\hline
+\end{tabular}
+
+Neste exemplo, A representa o valor de 8, 16, 32 ou 64 bits a ser codificado e B representa a chave de codificação. C é o resultado após a codificação e a última coluna mostra que se aplicarmos o valor codificado à chave original, obtemos novamente o valor original. A função $ \oplus $ é largamente utilizada devido a esta propriedade de facilmente restaurar o valor original.
+
+Apesar desta facilidade, um código feito com esta codificação simplista pode ser facilmente detectado através de análise de padrões. A seguir, vamos demostrar o uso da codificação via operação ou exclusivo, usando o código abaixo.
+
+{{{
+\renewcommand{\baselinestretch}{1.0}
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+  char  texto[255];
+  char  codificado[255];
+  int   i, chave;
+
+  printf("Digite o texto a ser codificado (máx. 255 caracteres)\n");
+  gets(texto);
+  printf("Digite a chave [1..255] para codificar o texto: ");
+  scanf("%d", &chave);
+  printf("Codificando...\n");
+  for (i=0; i < strlen(texto); i++) 
+    codificado[i] = texto[i] ^ (char) chave;
+  printf("Texto codificado: [%s]\n", codificado);
+  printf("Decodificando...\n");
+  for (i=0; i< strlen(codificado); i++) 
+    codificado[i] = codificado[i] ^ (char) chave;
+  printf("Texto decodificado: [%s]\n", codificado);
+  return 0;
+}
+\end{verbatim}
+}}}
+
+Vamos usar este código para fazer alguns exemplos
+
+
+\begin{tabular}{|l|r|l|}
+\hline
+Texto original&Chave&Texto codificado\\
+\hline
+A vida passa depressa!&1&@!whe`!q`rr`!edqsdrr` \\
+\hline
+A vida passa depressa!&23&V7a~sv7gvddv7srgerddv6\\
+\hline
+A vida passa depressa!&24&Y8nq|y8hykky8|\}hj\}kky9\\
+\hline
+ABCDEFGHIJKL&13&LONIHKJEDGFA\\
+\hline
+abcdefghijkl&13&lonihkjedgfa\\
+\hline
+abc,abc,abc&31&lon!lon!lon\\
+\hline
+aaaaaaaaaa&54&WWWWWWWWWW\\
+\hline
+\end{tabular}
+
+Ao olharmos para as três primeiras linhas, a codificação parece ser promissora e parece ser bem difícil, sem ter conhecimento do texto original, e nem da chave, adivinhar o que está escrito no texto codificado. Mas basta um olhar mais atento às 4 últimas linhas e veremos claramente o problema: a formação de padrões.
+
+Então, se há formação de padrões, a codificação torna-se inútil pois um analisador de padrões, ou mesmo uma pessoa, através de análise dos dados e dos padrões de repetição da língua poderiam facilmente encontrar o texto original. No nosso exemplo usamos um texto mas o mesmo princípio aplica-se ao código binário executável e às instruções do processador. Existe um número finito de instruções e suas combinações são bastante conhecidas e portanto descobrir a codificação, ainda que seja uma tarefa trabalhosa, é perfeitamente possível.
+
+Para evitar a formação de padrões, existem várias técnicas que podem ser aplicadas:
+\begin{itemize}
+\item Rotacionar bits da palavra codificada. Uma sequência de bits tem um bit mais significante e um menos significante. Um byte, por exemplo, pode ser descrito como 76543210, onde 7 é a posição do bit mais significativo e 0 é a posição do bit menos significativo. A rotação de bits pode ser simples: 07654321. Neste caso, o byte foi rotacionado um bit para a direita, ficando o bit menos significativo na posição do mais significativo. Pode parecer uma coisa bem simples, mas usado em combinação com a operação ou exclusivo, esta é uma técnica que dificulta bastante a decodificação. Principalmente porque pode ter rotação variável. Exemplo: os bits  podem rotacionar de acordo com sua posição, ou seja os bytes de posição par podem rotacionar 2 bits e os da  posição ímpar um bit. Ou ainda: Múltiplos de 3, não rotaciona; ímpares rotacionam um para a esquerda e pares 2 rotacionam 1 para a direita. Enfim, o limite da combinação é a imaginação do criador. 
+\item Troca de posição dos bytes. Embora mais trabalhosa, é uma técnica interessante. Imaginemos um palavra de 32 bits, onde cada byte é representado pelas letras ABCD, sendo que o byte mais significante o A e o menos significante o D. É possível apenas rotacionando os bits formar BADC ou ainda ACDB, ou qualquer outra combinação desejada. Para dificultar mais a vida de quem vai analisar, pode-se fazer isso de forma não convencional, por exemplo usando grupos de 3 bytes, em vez de 4.
+\item Somar a palavra atual com a anterior já codificada, ou aplicar a operação ou exclusivo com a palavra anterior. Neste caso a codificação acontece do início para o fim e a decodificação acontece do fim para o começo. No caso da soma ou subtração tem que tomar cuidado extra por causa do overflow ou underflow. Por exemplo, se somar 20 ao byte de valor 250 o resultado seria 270, que não é possível de representar em 8 bits. No caso da soma a técnica usada é trabalhar usando módulo. No caso, 270 \% 256 = 14. Na verdade o overflow/underflow são desejados pois ajudam a camuflar os resultados. 
+\item Embaralhar a ordem da informação. Exemplo: depois de codificado, trocar os itens de posição par com os de posição ímpar.
+\item Inserção de lixo no meio dos dados reais. Exemplo: a cada 50 bytes codificados, é inserido 7 bytes de lixo. Este lixo obviamente não tem significado algum e será ignorado na decodificação. No entanto, atrapalha em muito quem está tentando decifrar o código, uma vez que não tem como saber se os dados fazem ou não parte do código real.
+\item Utilização de chaves de tamanho variado. A chave pode ser uma sequência de números aleatórios, de tamanho aleatório. Esta sequência aleatória geralmente não é aleatória mas sim pseudoaleatória\footnote{http://pt.wikipedia.org/w/index.php?title=Sequ\%C3\%AAncia\_pseudoaleat\%C3\%B3ria\&oldid=30480084}. Ou é usada uma tabela pré-definida ou uma função que gera a sequência à partir da chave inicial. Neste caso, a grande dificuldade é descobrir a tabela ou a função que gera a chave.
+\end{itemize}
+
+Vamos modificar a nossa rotina para usar a operação ou exclusivo juntamente com rotação de bits para vermos se conseguimos nos livrar da formação de padrões. O código modificado está listado abaixo.
+
+{{{
+\renewcommand{\baselinestretch}{1.0}
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+unsigned char rol(unsigned char c, int bits)
+{
+  return ((c << bits) & 255) | (c >> (8 - bits)); 
+}
+
+unsigned char ror(unsigned char c, int bits)
+{
+  return (c >> bits) | ((c << (8 - bits)) & 255);
+}
+
+void imprime_hex(char str[], int tam) {
+  int i;
+  
+  for (i=0; i < tam; i++)
+    printf("%02X", (unsigned char) str[i]);
+  printf("\n");
+}
+
+int main(void) {
+  char  texto[255];
+  char  codificado[255];
+  int   i, c, shift, chave;
+
+  printf("Digite o texto a ser codificado: ");
+  gets(texto);
+  printf("Digite a chave [1..255] para codificar o texto: ");
+  scanf("%d", &chave);
+  printf("Codificando...\n");
+  shift = 3;
+  /* codificação */
+  for (i=0; i < strlen(texto); i++) {
+    /* aplica ou exclusivo */
+    c = (unsigned char) texto[i] ^ chave;
+    /* rotaciona os bits */
+    if (i % 2 == 0)
+      c = ror(c, shift);
+    else
+      c = rol(c, shift); 
+    /* guarda o byte codificado */
+    codificado[i] = (char) c;
+    shift = (++shift % 3) + 1;
+  }
+  printf("Devido ao fato da codificação gerar caracteres não ASCII,\n");
+  printf("o texto codificado será apresentado em hexadecimal:\n");
+  imprime_hex(codificado, strlen(texto));
+  printf("Decodificando...\n");
+  shift = 3;
+  /* decodificação */
+  for (i=0; i < strlen(texto); i++) {
+    c = codificado[i];
+    /* rotaciona os bits */
+    if (i % 2 == 0)
+      c = rol(c, shift);
+    else
+      c = ror(c, shift); 
+    /* aplica ou exclusivo */
+    codificado[i] = (char) c ^ chave;
+    shift = (++shift % 3) + 1;
+  }
+  printf("Texto decodificado: [%s]\n", codificado);
+  return 0;
+
+}
+\end{verbatim}
+}}}
+
+O código mudou e agora a saída não pode mais ser em texto por conta de que certamente teremos muitos caracteres não ASCII. Optamos por mostrar o resultado em hexadecimal. A mudança em relação ao primeiro código que implementamos está apenas na utilização de rotação de bits. Fizemos um código simples apenas para ser didático e mostrar o funcionamento na prática. Usamos um artifício de que quando a posição que estamos codificando for par fazemos a rotação à esquerda. Quando for ímpar, fazemos a rotação à direita. Também variamos o número de bits rotacionados de 1 a 3, conforme vamos avançando na codificação. Novamente frisamos que trata-se de um código simples, sem pretensão de ser perfeito nem otimizado. Codificações de criptografia forte com análise estatística de padrões podem ser encontradas em livros que tratam do assunto de criptografia.
+
+Vamos repetir novamente o estudo da tabela anterior, usando este novo código.
+
+\begin{tabular}{|l|r|p{8cm}|}
+\hline
+Texto original&Chave&Texto codificado\\
+\hline
+A vida passa depressa!&1&08 84 BB 43 59 C0 24 C5 30 93 9C C0 24 95 32 8B DC C8 4E C9 30 01\\
+\hline
+A vida passa depressa!&23&CA DC B0 F3 DC EC E6 9D 3B 23 19 EC E6 CD 39 3B 59 E4 8C 91 3B B1\\
+\hline
+A vida passa depressa!&24&2B E0 37 8B 1F F2 07 A1 BC 5B DA F2 07 F1 BE 43 9A FA 6D AD BC C9\\
+\hline
+ABCDEFGHIJKL&13&89 3D 27 4A 12 96 49 15 22 3A 91 82\\
+\hline
+abcdefghijkl&13&8D BD 37 4B 1A D6 4D 95 32 3B 99 C2\\
+\hline
+abc,abc,abc&31&CF F5 3E 99 9F FA 8F CC 3F EB 1F\\
+\hline
+aaaaaaaaaa&54&EA 5D AB BA D5 AE EA 5D AB BA\\
+\hline
+\end{tabular}
+
+Note que apesar de melhorar muito, na última linha ainda conseguimos ver perfeitamente um padrão. No entanto, quem olha para o padrão não poderá facilmente imaginar que este padrão é um único caracter. Para ficar mais claro o padrão, codificamos novamente a última linha com 20 caracteres e obtivemos:
+\begin{center}
+\textbf{EA 5D AB BA D5 AE} EA 5D AB BA D5 AE \textbf{EA 5D AB BA D5 AE} EA 5D\\
+\end{center}
+
+Pode-se ver claramente o padrão agora que separamos as parte de uma cadeia mais longa. Entretanto, este padrão pode ser diminuido e talvez até eliminado somando-se ao caracter a posição dele na linha em módulo 255 e fazendo a operação ou exclusivo com o caracter codificado anteriormente. O padrão ainda poderá repetir-se quando a codificação resultar em 00. No entanto, já geramos muitos dígitos diferentes para dificultar bastante a decodificação. Não esquecendo que este  padrão só é perceptível por conta de que estamos codificando sempre o mesmo caractere N vezes, o que não ocorre em uma situação real.
+
+A título de curiosidade, o resultado após implementar a soma posicional e a operação ou exclusivo com o caracter anterior pode ser visto abaixo. Note que o único caracter que continua igual é o primeiro pois ele não tem nenhum anterior para aplicar a operação e a posição dele é 0.
+\begin{center}
+EA B4 19 A4 7D CE 3E 5A E9 2A F5 4C BA D0 69 A0 45 FA 06 76
+\end{center}
+Caso não tenha entendido o que aconteceu, o segundo caractere gerado foi \textbf{5D} na codificação anterior. Na nova codificação, foi aplicado \textbf{5D + 1 = 5E} em seguida \textbf{5E$ \oplus $EA} o que resultou em \textbf{B4}. O próximo caracter gerado era \textbf{AB}. A este caracter foi aplicado \textbf{AB + 2 = AD} em seguida \textbf{AD$ \oplus $B4}, o que resultou em \textbf{19} e assim sucessivamente. Note que esta codificação é muito mais poderosa pois é feita baseada no caracter anterior e na posição física do caracter. Além disso, acrescentamos uma dificuldade maior, imposta pelo próprio algorítimo, que é a decodificação do final para o começo.
+
+Agora que entendemos como é feita a criptografia, entender o código polimórfico torna-se muito simples. Conforme dissemos anteriormente, é necessário uma rotina de codificação e outra de decodificação. Sem tais rotinas não temos como desenvolver o processo. Em geral a rotina de codificação está em outro módulo - no caso dos software de proteção anti-cópia - ou é codificada junto como restante do código a ser protegido - no caso dos vírus de computador.
+
+Logo de início a primeira pergunta que vem à mente é: \textbf{Mas se existe uma rotina de decodificação, de que adianta o resto estar codificado? Não basta apenas executar a rotina para obter o código original novamente?} De fato, de posse da rotina de faz a decodificação do código criptografado seria muito simples obter o código original. No entanto, existem várias técnicas para impedir o acesso à rotina de decodificação. Este é um dos assuntos do próximo capítulo.
+
