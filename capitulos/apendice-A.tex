@@ -224,25 +224,6 @@ Tabela de cabeçalho de seção & \tabularnewline
 \begin{list}{}
 \item {\begin{tabular}{|l|c|}
 \hline
- Arquivo Realocável & \tabularnewline
-\cline{1-1}  
-Cabeçalho ELF & \tabularnewline
-\cline{1-1}
-Tabela do cabeçalho do programa (opcional) & \tabularnewline
-\cline{1-1} 
-seção 1 & \tabularnewline
-\cline{1-1} 
-seção 2 & \tabularnewline
-\cline{1-1} 
-... & \tabularnewline
-\cline{1-1}
-seção n & \tabularnewline
-\cline{1-1} 
-Tabela de cabeçalho de seção & \tabularnewline
-\cline{1-1}
-\end{tabular}
-\begin{tabular}{|l|c|}
-\hline
 Arquivo Carregável &\tabularnewline
 \cline{1-1}
 Cabeçalho ELF & \tabularnewline
@@ -297,12 +278,12 @@ Tabela de cabeçalho de seção(opcional) & \tabularnewline
    e\_shstrndx - Indice das seções linkado com a tabela de strings.
 
 
-\subsection Identificação
+\subsection {Identificação}
   Nos 4 bytes iniciais do cabeçalho existe a especificação de como interpreta-lo, não considera o sistema que o le e nem o resto do arquivo.
-\subsection Entry Point Address
-  No e_entry indica o endereço para onde o sistema irá iniciar a execução dos códigos da seção de texto. Este endereço aponta para o inicio do linkador(_start) e não para o inicio do sistema que o programador define (main).
+\subsection {Entry Point Address}
+  No e\_entry indica o endereço para onde o sistema irá iniciar a execução dos códigos da seção de texto. Este endereço aponta para o inicio do linkador\(\_start\) e não para o inicio do sistema que o programador define (main).
 
-\subsection Tabela de Cabeçalhos do Programa (PHT)
+\subsection {Tabela de Cabeçalhos do Programa (PHT)}
    Descreve a criação do processo para o sistema. É obrigatória para os arquivos executáveis e opcional para os realocáveis. Abaixo segue a descrição de alguns dos identificadores:
    
    p\_type: Tipo de segmento e como interpretar a informação.
@@ -321,9 +302,9 @@ Tabela de cabeçalho de seção(opcional) & \tabularnewline
 
    p\_align: Valor para alinhamento na memória e no arquivo. Quando 0 ou 1 indica que não é necessário, se o for deve ser positivo e em potência de 2.
 
-\subsection Tabela de Cabeçalhos de Seção (SHT)
+\subsection {Tabela de Cabeçalhos de Seção (SHT)}
    Descreve as seções. Cada entrada é definida pela seção e possue informações dela.
-   Ela é definida como um vetor, o identificador e_shoffdo cabeçalho que define o offset para localizar o inicio e o e_shentsize do tamanho de cada bloco.
+   Ela é definida como um vetor, o identificador e\_shoffdo cabeçalho que define o offset para localizar o inicio e o e\_shentsize do tamanho de cada bloco.
    
    sh\_name: Indice para a tabela de string de cabeçalho de seção, descrita acima.
 
@@ -341,12 +322,12 @@ Tabela de cabeçalho de seção(opcional) & \tabularnewline
    
    sh\_info: Informação extra, interpretado junto com o tipo de seção.
    
-   sh\_addralign: Verificação do alinhamento dos blocos definidos por sh_addr, sh_addr deve ser divisivel por sh_addralign.
+   sh\_addralign: Verificação do alinhamento dos blocos definidos por sh\_addr, sh\_addr deve ser divisivel por sh\_addralign.
 
 
    sh\_entsize: Tamanho fixo da tabela de seção, se não for deste tipo terá 0.
 
-\subsection Seções Especiais
+\subsection {Seções Especiais}
    .bss: Dados não inicializados que são utilizados no programa em memória. Inicia com 0 no inicio do programa, este não ocupa espaço no programa.
    
    .comment: Informações de controle de versão.
@@ -363,7 +344,7 @@ Tabela de cabeçalho de seção(opcional) & \tabularnewline
 
    .fini: Instruções executáveis para finalização do programa.
 
-   .got: Contém a Global Offset Table (GOT).
+   .got: Contém a Global Offset Table \(GOT\).
 
    .hash: Hashtable de símbolos.
 
@@ -371,11 +352,11 @@ Tabela de cabeçalho de seção(opcional) & \tabularnewline
 
    .interp: Caminho para o programa interpretador.
 
-   .line: Número da linha (no código) para debugar.
+   .line: Número da linha \(no código\) para debugar.
    
    .note: Informações de formato.
    
-   .plt: Contém a Procedure Linkage Tabel (PLT).
+   .plt: Contém a Procedure Linkage Tabel \(PLT\).
 
    .relname ou .relaname: Informações para realocação.
 
@@ -389,9 +370,9 @@ Tabela de cabeçalho de seção(opcional) & \tabularnewline
 
    .text: Instruções executáveis do programa.
 
-\subsection Tabela de Strings
-   Tabela onde armazena strings, terminadas com '\0'. O arquivo objeto utiliza-as para representar os simbolos e nomes das seções. É acessada através de seus indices. O campo sh_name do cabeçalho da seção possue o indice para esta tabela que o é indicado pela e_shstrndx do cabeçalho do programa.
-\subsection Tabela de Símbolos (Symbol table)
+\subsection {Tabela de Strings}
+   Tabela onde armazena strings, terminadas com '\\0'. O arquivo objeto utiliza-as para representar os simbolos e nomes das seções. É acessada através de seus indices. O campo sh\_name do cabeçalho da seção possue o indice para esta tabela que o é indicado pela e\_shstrndx do cabeçalho do programa.
+\subsection {Tabela de Símbolos (Symbol table)}
    Contém referencias e definições para localizar e realocar no programa.
    
    st\_name: Indice para a tabela de strings que contém o nome do símbolo. Se possui 0, o símbolo não tem nome.
