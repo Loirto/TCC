@@ -268,33 +268,33 @@ Tabela de cabeçalho de seção(opcional) & \tabularnewline
    Este contém toda a organização do arquivo, a partir dele que podemos ter acesso a outras partes utilizando o offset.
    Temos as identificações:
 
-   e_ident: A identificação do arquivo.
+   e\_ident: A identificação do arquivo.
 
-   e_type: Tipo de objeto.
+   e\_type: Tipo de objeto.
 
-   e_machine: Arquitetura do arquivo.
+   e\_machine: Arquitetura do arquivo.
    
-   e_version: A sua versão.
+   e\_version: A sua versão.
   
-   e_entry: Endereço virtual para ponto de inicio do processo.
+   e\_entry: Endereço virtual para ponto de inicio do processo.
    
-   e_phoff: O tamanho do cabeçalho em bytes.
+   e\_phoff: O tamanho do cabeçalho em bytes.
    
-   e_phentsize: O tamanho de uma entrada no cabeçalho do ELF.
+   e\_phentsize: O tamanho de uma entrada no cabeçalho do ELF.
    
-   e_phnum: O número de entradas no cabeçalho.
+   e\_phnum: O número de entradas no cabeçalho.
    
-   e_flags: São as flags para o processador.
+   e\_flags: São as flags para o processador.
    
-   e_ehsize: O tamanho do header ELF em bytes.
+   e\_ehsize: O tamanho do header ELF em bytes.
    
-   e_shoff: O tamanho do cabeçalho da seção.
+   e\_shoff: O tamanho do cabeçalho da seção.
    
-   e_shentsize: O tamanho de uma entrada no cabeçalho da seção.
+   e\_shentsize: O tamanho de uma entrada no cabeçalho da seção.
 
-   e_shnum- O entradas no cabeçalho da seção.
+   e\_shnum- O entradas no cabeçalho da seção.
    
-   e_shstrndx - Indice das seções linkado com a tabela de strings.
+   e\_shstrndx - Indice das seções linkado com a tabela de strings.
 
 
 \subsection Identificação
@@ -305,46 +305,46 @@ Tabela de cabeçalho de seção(opcional) & \tabularnewline
 \subsection Tabela de Cabeçalhos do Programa (PHT)
    Descreve a criação do processo para o sistema. É obrigatória para os arquivos executáveis e opcional para os realocáveis. Abaixo segue a descrição de alguns dos identificadores:
    
-   p_type: Tipo de segmento e como interpretar a informação.
+   p\_type: Tipo de segmento e como interpretar a informação.
 
-   p_offset: Offset a partir do começo ao primeiro byte do segmento.
+   p\_offset: Offset a partir do começo ao primeiro byte do segmento.
 
-   p_vaddr: Endereço virtual do primeiro byte do segmento.
+   p\_vaddr: Endereço virtual do primeiro byte do segmento.
 
-   p_paddr: Endereço físico, reservado para quando o é utilizado.
+   p\_paddr: Endereço físico, reservado para quando o é utilizado.
 
-   p_filesz: Número de bytes do segmento.
+   p\_filesz: Número de bytes do segmento.
 
-   p_memsz: Número de bytes do segmento na memória.
+   p\_memsz: Número de bytes do segmento na memória.
 
-   p_flags: Flags utilizadas no segmento.
+   p\_flags: Flags utilizadas no segmento.
 
-   p_align: Valor para alinhamento na memória e no arquivo. Quando 0 ou 1 indica que não é necessário, se o for deve ser positivo e em potência de 2.
+   p\_align: Valor para alinhamento na memória e no arquivo. Quando 0 ou 1 indica que não é necessário, se o for deve ser positivo e em potência de 2.
 
 \subsection Tabela de Cabeçalhos de Seção (SHT)
    Descreve as seções. Cada entrada é definida pela seção e possue informações dela.
    Ela é definida como um vetor, o identificador e_shoffdo cabeçalho que define o offset para localizar o inicio e o e_shentsize do tamanho de cada bloco.
    
-   sh_name: Indice para a tabela de string de cabeçalho de seção, descrita acima.
+   sh\_name: Indice para a tabela de string de cabeçalho de seção, descrita acima.
 
-   sh_type: Tipo semântico da seção.
+   sh\_type: Tipo semântico da seção.
 
-   sh_flags: Flags da seção (one-bit, 0 ou 1), que descreve seus atributos.
+   sh\_flags: Flags da seção (one-bit, 0 ou 1), que descreve seus atributos.
 
-   sh_addr: Endereço da seção, caso a seção apareça em memória, senão tem o valor 0.
+   sh\_addr: Endereço da seção, caso a seção apareça em memória, senão tem o valor 0.
 
-   sh_offset: Indica o inicio da seção no arquivo.
+   sh\_offset: Indica o inicio da seção no arquivo.
    
-   sh_size: Tamanho da seção em bytes.
+   sh\_size: Tamanho da seção em bytes.
    
-   sh_link: Contém o link para a tabela de cabeçalho da seção.
+   sh\_link: Contém o link para a tabela de cabeçalho da seção.
    
-   sh_info: Informação extra, interpretado junto com o tipo de seção.
+   sh\_info: Informação extra, interpretado junto com o tipo de seção.
    
-   sh_addralign: Verificação do alinhamento dos blocos definidos por sh_addr, sh_addr deve ser divisivel por sh_addralign.
+   sh\_addralign: Verificação do alinhamento dos blocos definidos por sh_addr, sh_addr deve ser divisivel por sh_addralign.
 
 
-   sh_entsize: Tamanho fixo da tabela de seção, se não for deste tipo terá 0.
+   sh\_entsize: Tamanho fixo da tabela de seção, se não for deste tipo terá 0.
 
 \subsection Seções Especiais
    .bss: Dados não inicializados que são utilizados no programa em memória. Inicia com 0 no inicio do programa, este não ocupa espaço no programa.
@@ -394,14 +394,14 @@ Tabela de cabeçalho de seção(opcional) & \tabularnewline
 \subsection Tabela de Símbolos (Symbol table)
    Contém referencias e definições para localizar e realocar no programa.
    
-   st_name: Indice para a tabela de strings que contém o nome do símbolo. Se possui 0, o símbolo não tem nome.
+   st\_name: Indice para a tabela de strings que contém o nome do símbolo. Se possui 0, o símbolo não tem nome.
 
-   st_value: Valor do símbolo.
+   st\_value: Valor do símbolo.
 
-   st_size: Tamanho do símbolo, caso haja algum senão possui o valor 0.
+   st\_size: Tamanho do símbolo, caso haja algum senão possui o valor 0.
 
-   st_info: Tipo do símbolo e atributos.
+   st\_info: Tipo do símbolo e atributos.
 
-   st_other: Possui o valor 0, sem uma definição.
+   st\_other: Possui o valor 0, sem uma definição.
    
-   st_shndx: Indice para o cabeçalho de seção utilizada.
+   st\_shndx: Indice para o cabeçalho de seção utilizada.
