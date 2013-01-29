@@ -194,29 +194,189 @@ de diretório de debug.
 
 
 \section{Arquivo ELF}
-
-Explicação
-
+   O formato ELF(Executable and Linkable Format, anteriormente Extensible Linking Format) é um tipo padrão para formato de arquivos executáveis, códigos, bibliotecas compartilhadas e core dumps. Foi facilmente aceito em diversas distribuições de Unix. 
+   Em 1999 foi escolhido como o arquivo binário padrão para o sistemas Unix e baseados em Unix. Diferentemente dos executáveis proprietários ele é flexivel e extensivel, e não está limitado para uma arquitetura especifica. Pode ser adotado por diferentes sistema operacionais e outras plataformas.
 
 \subsection{A estrutura do arquivo ELF}
 
-\begin{tabular}{|c|c|c|}
-\multicolumn{1}{c}{\textbf{Arquivo Realocável}} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\textbf{Arquivo Carregável}}\tabularnewline
-\cline{1-1} \cline{3-3} 
-Cabeçalho ELF &  & Cabeçalho ELF\tabularnewline
-\cline{1-1} \cline{3-3} 
-Tabela do cabeçalho do programa (opcional) &  & Tabela do cabeçalho do programa\tabularnewline
-\cline{1-1} \cline{3-3} 
-seção 1 &  & Segmento 1\tabularnewline
+\begin{tabular}{|l|c|}
+\hline
+ Arquivo Realocável & \tabularnewline
+\cline{1-1}  
+Cabeçalho ELF & \tabularnewline
+\cline{1-1}
+Tabela do cabeçalho do programa (opcional) & \tabularnewline
 \cline{1-1} 
-seção 2 &  & \tabularnewline
-\cline{1-1} \cline{3-3} 
-... &  & Segmento 2\tabularnewline
-\cline{1-1} \cline{3-3} 
-seção n &  & ...\tabularnewline
-\cline{1-1} \cline{3-3} 
-Tabela de cabeçalho de seção &  & Tabela de cabeçalho de seção(opcional)\tabularnewline
-\cline{1-1} \cline{3-3} 
+seção 1 & \tabularnewline
+\cline{1-1} 
+seção 2 & \tabularnewline
+\cline{1-1} 
+... & \tabularnewline
+\cline{1-1}
+seção n & \tabularnewline
+\cline{1-1} 
+Tabela de cabeçalho de seção & \tabularnewline
+\cline{1-1}
+\end{tabular}
+\begin{tabular}{|l|c|}
+\hline
+Arquivo Carregável &\tabularnewline
+\cline{1-1}
+Cabeçalho ELF & \tabularnewline
+\cline{1-1}
+Tabela do cabeçalho do programa & \tabularnewline
+\cline{1-1} 
+Segmento 1 & \tabularnewline
+\cline{1-1} 
+ & \tabularnewline
+\cline{1-1}
+Segmento 2 & \tabularnewline
+\cline{1-1}
+... & \tabularnewline
+\cline{1-1}
+Tabela de cabeçalho de seção(opcional) & \tabularnewline
+\cline{1-1}
 \end{tabular}
 
+\subsection{Cabeçalho}
+   No cabeçalho de um arquivo ELF, existe uma ordem especifica, já para as seções e segmentos não.
+   Este contém toda a organização do arquivo, a partir dele que podemos ter acesso a outras partes utilizando o offset.
+   Temos as identificações:
 
+   e_ident: A identificação do arquivo.
+
+   e_type: Tipo de objeto.
+
+   e_machine: Arquitetura do arquivo.
+   
+   e_version: A sua versão.
+  
+   e_entry: Endereço virtual para ponto de inicio do processo.
+   
+   e_phoff: O tamanho do cabeçalho em bytes.
+   
+   e_phentsize: O tamanho de uma entrada no cabeçalho do ELF.
+   
+   e_phnum: O número de entradas no cabeçalho.
+   
+   e_flags: São as flags para o processador.
+   
+   e_ehsize: O tamanho do header ELF em bytes.
+   
+   e_shoff: O tamanho do cabeçalho da seção.
+   
+   e_shentsize: O tamanho de uma entrada no cabeçalho da seção.
+
+   e_shnum- O entradas no cabeçalho da seção.
+   
+   e_shstrndx - Indice das seções linkado com a tabela de strings.
+
+
+\subsection Identificação
+  Nos 4 bytes iniciais do cabeçalho existe a especificação de como interpreta-lo, não considera o sistema que o le e nem o resto do arquivo.
+\subsection Entry Point Address
+  No e_entry indica o endereço para onde o sistema irá iniciar a execução dos códigos da seção de texto. Este endereço aponta para o inicio do linkador(_start) e não para o inicio do sistema que o programador define (main).
+
+\subsection Tabela de Cabeçalhos do Programa (PHT)
+   Descreve a criação do processo para o sistema. É obrigatória para os arquivos executáveis e opcional para os realocáveis. Abaixo segue a descrição de alguns dos identificadores:
+   
+   p_type: Tipo de segmento e como interpretar a informação.
+
+   p_offset: Offset a partir do começo ao primeiro byte do segmento.
+
+   p_vaddr: Endereço virtual do primeiro byte do segmento.
+
+   p_paddr: Endereço físico, reservado para quando o é utilizado.
+
+   p_filesz: Número de bytes do segmento.
+
+   p_memsz: Número de bytes do segmento na memória.
+
+   p_flags: Flags utilizadas no segmento.
+
+   p_align: Valor para alinhamento na memória e no arquivo. Quando 0 ou 1 indica que não é necessário, se o for deve ser positivo e em potência de 2.
+
+\subsection Tabela de Cabeçalhos de Seção (SHT)
+   Descreve as seções. Cada entrada é definida pela seção e possue informações dela.
+   Ela é definida como um vetor, o identificador e_shoffdo cabeçalho que define o offset para localizar o inicio e o e_shentsize do tamanho de cada bloco.
+   
+   sh_name: Indice para a tabela de string de cabeçalho de seção, descrita acima.
+
+   sh_type: Tipo semântico da seção.
+
+   sh_flags: Flags da seção (one-bit, 0 ou 1), que descreve seus atributos.
+
+   sh_addr: Endereço da seção, caso a seção apareça em memória, senão tem o valor 0.
+
+   sh_offset: Indica o inicio da seção no arquivo.
+   
+   sh_size: Tamanho da seção em bytes.
+   
+   sh_link: Contém o link para a tabela de cabeçalho da seção.
+   
+   sh_info: Informação extra, interpretado junto com o tipo de seção.
+   
+   sh_addralign: Verificação do alinhamento dos blocos definidos por sh_addr, sh_addr deve ser divisivel por sh_addralign.
+
+
+   sh_entsize: Tamanho fixo da tabela de seção, se não for deste tipo terá 0.
+
+\subsection Seções Especiais
+   .bss: Dados não inicializados que são utilizados no programa em memória. Inicia com 0 no inicio do programa, este não ocupa espaço no programa.
+   
+   .comment: Informações de controle de versão.
+
+   .data ou .data1: Dados inicializados utilizados no programa em memória (tem também a .data1)
+
+   .debug: Informações para debugar os simbolos.
+   
+   .dynamic: Informações para linkagem dinâmica.
+   
+   .dynstr: Strings para a linkagem dinâmica.
+   
+   .dynsym: Tabela de símbolos da linkagem dinâmica.
+
+   .fini: Instruções executáveis para finalização do programa.
+
+   .got: Contém a Global Offset Table (GOT).
+
+   .hash: Hashtable de símbolos.
+
+   .init: Instruções para inicialização do programa.
+
+   .interp: Caminho para o programa interpretador.
+
+   .line: Número da linha (no código) para debugar.
+   
+   .note: Informações de formato.
+   
+   .plt: Contém a Procedure Linkage Tabel (PLT).
+
+   .relname ou .relaname: Informações para realocação.
+
+   .rodata ou .rodata1: Dados para somente de leitura, utilizados em segmento que não permite escrita.
+
+   .shstrtab: Nomes das seções.
+
+   .strtab: Nomes associados as entradas na tabela de simbolos.
+
+   .symtab: A tabela de símbolos.
+
+   .text: Instruções executáveis do programa.
+
+\subsection Tabela de Strings
+   Tabela onde armazena strings, terminadas com '\0'. O arquivo objeto utiliza-as para representar os simbolos e nomes das seções. É acessada através de seus indices. O campo sh_name do cabeçalho da seção possue o indice para esta tabela que o é indicado pela e_shstrndx do cabeçalho do programa.
+\subsection Tabela de Símbolos (Symbol table)
+   Contém referencias e definições para localizar e realocar no programa.
+   
+   st_name: Indice para a tabela de strings que contém o nome do símbolo. Se possui 0, o símbolo não tem nome.
+
+   st_value: Valor do símbolo.
+
+   st_size: Tamanho do símbolo, caso haja algum senão possui o valor 0.
+
+   st_info: Tipo do símbolo e atributos.
+
+   st_other: Possui o valor 0, sem uma definição.
+   
+   st_shndx: Indice para o cabeçalho de seção utilizada.
