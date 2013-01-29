@@ -199,7 +199,30 @@ de diretório de debug.
 
 \subsection{A estrutura do arquivo ELF}
 
-\begin{tabular}{|l|c|}
+\begin{list}{}
+\item {\begin{tabular}{|l|c|}
+\hline
+ Arquivo Realocável & \tabularnewline
+\cline{1-1}  
+Cabeçalho ELF & \tabularnewline
+\cline{1-1}
+Tabela do cabeçalho do programa (opcional) & \tabularnewline
+\cline{1-1} 
+seção 1 & \tabularnewline
+\cline{1-1} 
+seção 2 & \tabularnewline
+\cline{1-1} 
+... & \tabularnewline
+\cline{1-1}
+seção n & \tabularnewline
+\cline{1-1} 
+Tabela de cabeçalho de seção & \tabularnewline
+\cline{1-1}
+\end{tabular}}
+\end{list}
+
+\begin{list}{}
+\item {\begin{tabular}{|l|c|}
 \hline
  Arquivo Realocável & \tabularnewline
 \cline{1-1}  
@@ -236,7 +259,9 @@ Segmento 2 & \tabularnewline
 \cline{1-1}
 Tabela de cabeçalho de seção(opcional) & \tabularnewline
 \cline{1-1}
-\end{tabular}
+\end{tabular}}
+\end{list}
+
 
 \subsection{Cabeçalho}
    No cabeçalho de um arquivo ELF, existe uma ordem especifica, já para as seções e segmentos não.
