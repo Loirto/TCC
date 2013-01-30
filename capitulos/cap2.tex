@@ -211,11 +211,37 @@ Note que apesar de melhorar muito, na última linha ainda conseguimos ver perfei
 
 Pode-se ver claramente o padrão agora que separamos as parte de uma cadeia mais longa. Entretanto, este padrão pode ser diminuido e talvez até eliminado somando-se ao caracter a posição dele na linha em módulo 255 e fazendo a operação ou exclusivo com o caracter codificado anteriormente. O padrão ainda poderá repetir-se quando a codificação resultar em 00. No entanto, já geramos muitos dígitos diferentes para dificultar bastante a decodificação. Não esquecendo que este  padrão só é perceptível por conta de que estamos codificando sempre o mesmo caractere N vezes, o que não ocorre em uma situação real.
 
-A título de curiosidade, o resultado após implementar a soma posicional e a operação ou exclusivo com o caracter anterior pode ser visto abaixo. Note que o único caracter que continua igual é o primeiro pois ele não tem nenhum anterior para aplicar a operação e a posição dele é 0.
+A título de curiosidade, o resultado após implementar a soma posicional e a operação ou exclusivo com o caractere anterior pode ser visto abaixo.
 \begin{center}
 EA B4 19 A4 7D CE 3E 5A E9 2A F5 4C BA D0 69 A0 45 FA 06 76
 \end{center}
-Caso não tenha entendido o que aconteceu, o segundo caractere gerado foi \textbf{5D} na codificação anterior. Na nova codificação, foi aplicado \textbf{5D + 1 = 5E} em seguida \textbf{5E$ \oplus $EA} o que resultou em \textbf{B4}. O próximo caracter gerado era \textbf{AB}. A este caracter foi aplicado \textbf{AB + 2 = AD} em seguida \textbf{AD$ \oplus $B4}, o que resultou em \textbf{19} e assim sucessivamente. Note que esta codificação é muito mais poderosa pois é feita baseada no caracter anterior e na posição física do caracter. Além disso, acrescentamos uma dificuldade maior, imposta pelo próprio algorítimo, que é a decodificação do final para o começo.
+Note que o único caractere que continua igual é o primeiro pois ele não tem nenhum anterior para aplicar a operação $ \oplus $ e a posição dele é 0. Olhando para a nova cadeia, vamos ver se entendemos o ocorrido analisando os primeiros cinco caracteres codificados pelo novo algorítimo:
+
+\footnotesize
+\noindent%
+\begin{tabular}{@{}|r|c|c|c|c|c|c|c||c||}
+\hline
+P & P \% 2 & S & C & C$_{bin}$ & C$ \oplus $54 & V & X & R[P]\\
+\hline
+0 & 0 & 3 & a & 01100001 & 01010111 & 11101010 = 0xEA & 11101010 & 11101010 = 0xEA \\
+1 & 1 & 2 & a & 01100001 & 01010111 & 01011101 = 0x5D & 01011110 & 10110110 = 0xB4 \\
+2 & 0 & 1 & a & 01100001 & 01010111 & 10101011 = 0xAB & 10101101 & 00011001 = 0x19 \\
+3 & 1 & 3 & a & 01100001 & 01010111 & 10111010 = 0xBA & 10111101 & 10100100 = 0xA4 \\
+4 & 0 & 2 & a & 01100001 & 01010111 & 11010101 = 0xD5 & 11011001 & 01111101 = 0x7D \\
+\hline
+\end{tabular}
+\normalsize
+
+Para entender a tabela acima:
+\begin{itemize}
+\item P = posição do caracter no vetor de caracteres
+\item C = carater da posição P
+\item S = valor usado para shift de bits. É sempre módulo de 3, com valor variando de 3 a 1, de forma decrescente.
+\item V = P \% 2 == 0 ? ROR C, S : ROL C, S. Ou seja, se for posição múltipla de 2 rotaciona à direita, senão rotaciona à esquerda
+\item X = (V + P) \& 255. O caracter codificado na coluna anterior, mais a posição dele na cadeia em módulo 255
+\item R[P] = P > 0 ? X $ \oplus $ R[P-1] : X. Se a posição no for a inicial, aplica ou exclusivo com o caracter codificado no passo anterior.
+\end{itemize}
+Note que na coluna \textbf{V} temos o resultado da codificação do nosso primeiro algorítimo. À partir da segunda linha a codificação começa a ficar diferente. O segundo caractere gerado na codificação anterior foi \textbf{5D}. Na nova codificação, foi aplicado \textbf{5D + 1 = 5E} em seguida \textbf{5E$ \oplus $EA} o que resultou em \textbf{B4}. O próximo caracter gerado era \textbf{AB}. A este caracter foi aplicado \textbf{AB + 2 = AD} em seguida \textbf{AD$ \oplus $B4}, o que resultou em \textbf{19} e assim sucessivamente. Note que esta codificação é muito mais poderosa pois é feita baseada no caracter anterior e na posição física do caracter. Além disso, acrescentamos uma dificuldade maior, imposta pelo próprio algorítimo, que é a decodificação do final para o começo.
 
 Agora que entendemos como é feita a criptografia, entender o código polimórfico torna-se muito simples. Conforme dissemos anteriormente, é necessário uma rotina de codificação e outra de decodificação. Sem tais rotinas não temos como desenvolver o processo. Em geral a rotina de codificação está em outro módulo - no caso dos software de proteção anti-cópia - ou é codificada junto como restante do código a ser protegido - no caso dos vírus de computador.
 
