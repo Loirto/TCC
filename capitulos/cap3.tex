@@ -13,5 +13,25 @@ Então, os desenvolvedores de vírus perceberam que para evitar a detecção dev
 \section{As partes do vírus polimórfico}
 
 \section{Protegendo a rotina de decriptografia}
+Conforme vimos, as técnicas de criptografia são eficientes para proteger o código polimórfico mas possuem um calcanhar de Aquiles: a rotina de decriptografia. Existem várias técnicas usadas para proteger esta rotina contra algoritmos de heurística, casamento de padrões e mesmo engenharia reversa. Vamos ver algumas delas.
+
+\subsection{Técnicas anti-debugging} 
+\footnote{pferrie.host22.com/papers/antidebug.pdf}
+\footnote{http://en.wikipedia.org/w/index.php?title=Debugging\&oldid=533173326} 
+\footnote{http://thelegendofrandom.com/blog/archives/2100} 
+\footnote{http://www.symantec.com/connect/articles/windows-anti-debug-reference}
+\footnote{web.eecs.umich.edu/~mibailey/publications/dsn08\_final.pdf} 
+\footnote{research.dissect.pe/docs/blackhat2012-paper.pdf}
+\footnote(Software: http://newgre.net/idastealth}
+A engenharia reversa é largamente utilizada todos os dias, com propósitos nobres e outros não tão nobres assim:
+\begin{itemize}
+ \item Entender como funciona um algorítmo que teve o fonte perdido ou cujo fornecedor não existe mais.
+ \item Estudar o código de um driver proprietário que não disponibiliza os fontes e que está com defeito ou que não existe versão para o SO desejado. 
+ \item Estudar um código malicioso a fim de criar uma defesa contra o mesmo.
+ \item Estudar um algorítmo para criar uma outra versão e obter lucro vendendo sua própria solução.
+\end{itemize}
+
+Muitas empresas querem proteger seu patrimônio intelectual e empregam além de criptografia técnicas para impedir ou dificultar muito a engenharia reversa em seus produtos. A seguir vamos analisar brevemente algumas das técnicas utilizadas. 
+
 
 \section{Polimorfismo em linguagens interpretadas}
