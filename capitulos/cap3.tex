@@ -8,11 +8,15 @@ Algumas versões de vírus de boot sector eram um pouco mais inteligentes e assu
 
 Também começaram a surgir cada vez mais vírus e a detecção por assinatura somente não estava mais dando certo pois novas variações do mesmo vírus tinham assinaturas diferentes. Por exemplo, o Stoned mencionado anteriormente teve muitas variações e buscar pela assinatura original não detectava mais o vírus pois a mensagem foi modificada. Então as empresas de anti-vírus começaram a desenvolver algorítmos que analisavam o código a fim de detectar certos padrões de execução (chamado código malicioso) que identificavam por certo um código que não deveria ser executado, utilizando análise heurística\footnote{http://en.wikipedia.org/w/index.php?title=Heuristic\_analysis\&oldid=529072201} \footnote{http://forums.avg.com/pt-pt/avg-forums?sec=thread\&act=show\&id=371}.
 
-Então, os desenvolvedores de vírus perceberam que para evitar a detecção deveriam modificar a aparência do código. Foi assim que surgiram os vírus polimórficos.
+Então, os desenvolvedores de vírus perceberam que para evitar a detecção deveriam modificar a aparência do código, surgindo assim os vírus polimórficos. A criação de vírus polimórficos iniciou-se em meados dos anos 1990, com a criação do vírus chamado \textbf{1260}\footnote{http://en.wikipedia.org/w/index.php?title=1260\_\%28computer\_virus\%29\&oldid=527495020}. Também nesta época, um desenvolvedor de vírus búlgaro, chamado Dark Avenger\footnote{http://en.wikipedia.org/w/index.php?title=Dark\_Avenger\&oldid=513782286} criou um módulo objeto que ele chamou de \textit{Mutation engine}. Este código foi desenhado para ser ligado ao vírus durante a compilação e ser chamado pelo vírus durante o processo de replicação para dar ao vírus a capacidade de mutação a cada nova infecção. Foi uma grande revolução na forma de pensar e construir vírus e um enorme desafio para a indústria de anti-vírus. 
 
 \section{As partes do vírus polimórfico}
+Basicamente, um virus polimórfico pode ser dividido em duas partes: o código do vírus propriamente dito e a rotina de descriptografia. O corpo do vírus é criptografado e a cada nova infecção uma nova criptografia é feita, desta forma tornando as variações impossíveis de detectar através de casamento de padrões.
 
-\section{Protegendo a rotina de decriptografia}
+A rotina de descriptografia é responsável por restaurar o código original do vírus e passar o controle de execução a ele. Esta rotina tem que ser gerada pelo gerador do código polimórfico de tal maneira que não seja um código estático pois senão seria facilmente detectável pelos anti-vírus usando busca por padrões e todo o trabalho da criptografia para esconder o código do vírus seria inútil.
+
+
+\section{Protegendo a rotina de descriptografia}
 Conforme vimos, as técnicas de criptografia são eficientes para proteger o código polimórfico mas possuem um calcanhar de Aquiles: a rotina de decriptografia. Existem várias técnicas usadas para proteger esta rotina contra algoritmos de heurística, casamento de padrões e mesmo engenharia reversa. Vamos ver algumas delas.
 
 \subsection{Técnicas anti-debugging} 
@@ -22,7 +26,7 @@ Conforme vimos, as técnicas de criptografia são eficientes para proteger o có
 \footnote{http://www.symantec.com/connect/articles/windows-anti-debug-reference}
 \footnote{web.eecs.umich.edu/~mibailey/publications/dsn08\_final.pdf} 
 \footnote{research.dissect.pe/docs/blackhat2012-paper.pdf}
-\footnote(Software: http://newgre.net/idastealth}
+\footnote{Software: http://newgre.net/idastealth}
 A engenharia reversa é largamente utilizada todos os dias, com propósitos nobres e outros não tão nobres assim:
 \begin{itemize}
  \item Entender como funciona um algorítmo que teve o fonte perdido ou cujo fornecedor não existe mais.
