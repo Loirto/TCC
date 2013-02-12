@@ -17,7 +17,9 @@ A rotina de descriptografia é responsável por restaurar o código original do 
 
 
 \section{Protegendo a rotina de descriptografia}
-Conforme vimos, as técnicas de criptografia são eficientes para proteger o código polimórfico mas possuem um calcanhar de Aquiles: a rotina de decriptografia. Existem várias técnicas usadas para proteger esta rotina contra algoritmos de heurística, casamento de padrões e mesmo engenharia reversa. Vamos ver algumas delas.
+Conforme vimos, as técnicas de criptografia são eficientes para proteger o código polimórfico mas possuem um calcanhar de Aquiles: a rotina de descriptografia. Como o anti-vírus não poderia detectar o codigo do vírus, uma vez que ele está criptografado, então a única possibilidade de detectar o vírus é através da rotina de descriptografia. Esta é uma grande vantagem, pois o criador do vírus tem certeza de que o código malicioso está protegido pela criptografia e portanto não será detectado, mas também é um grande problema pois o código da descriptografia fica exposto e, em geral, é um código pequeno o que o torna difícil de ser camuflado. Existem várias técnicas usadas para proteger esta rotina contra algoritmos de heurística, casamento de padrões e mesmo engenharia reversa. Vamos ver algumas delas.
+
+\subsection{Técnicas anti-anti-vírus}
 
 \subsection{Técnicas anti-debugging} 
 \footnote{pferrie.host22.com/papers/antidebug.pdf}
@@ -27,6 +29,9 @@ Conforme vimos, as técnicas de criptografia são eficientes para proteger o có
 \footnote{web.eecs.umich.edu/~mibailey/publications/dsn08\_final.pdf} 
 \footnote{research.dissect.pe/docs/blackhat2012-paper.pdf}
 \footnote{Software: http://newgre.net/idastealth}
+\footnote{Análise vírus Invir http://www.peterszor.com/invirs.pdf}
+Quando um anti-virus não consegue reconhecer o vírus, uma amostra do arquivo infectado é enviado para análise por técnicos da empresa de anti-vírus, que usarão técnicas de engenharia reversa para analisar o funcionamento do código malicioso. Assim que conseguirem entender o funcionamento do vírus, uma nova vacina é criada. Portanto, é de grande importância para o desenvolvedor do código malicioso que este processo seja dificultado ao máximo, prorrogando assim o tempo de vida útil do vírus, worm, malware ou spyware. 
+
 A engenharia reversa é largamente utilizada todos os dias, com propósitos nobres e outros não tão nobres assim:
 \begin{itemize}
  \item Entender como funciona um algorítmo que teve o fonte perdido ou cujo fornecedor não existe mais.
@@ -35,7 +40,14 @@ A engenharia reversa é largamente utilizada todos os dias, com propósitos nobr
  \item Estudar um algorítmo para criar uma outra versão e obter lucro vendendo sua própria solução.
 \end{itemize}
 
-Muitas empresas querem proteger seu patrimônio intelectual e empregam além de criptografia técnicas para impedir ou dificultar muito a engenharia reversa em seus produtos. A seguir vamos analisar brevemente algumas das técnicas utilizadas. 
+Muitas empresas querem proteger seu patrimônio intelectual e empregam, além de criptografia, técnicas para impedir ou dificultar muito a engenharia reversa em seus produtos. A seguir vamos descrever brevemente algumas das técnicas utilizadas, tendo em mente que várias delas não funcionam nos dias atuais mas vamos escrever sobre elas pois foram muito utilizadas pelos desenvolvedores de vírus. 
 
 
 \section{Polimorfismo em linguagens interpretadas}
+
+%\glossario{virus}{teste de descrição do glossário}
+Vírus de computador podem ser escritos em qualquer linguagem. Alguns vírus são escritos para infectar o próprio código fonte dos programas, antes mesmo deles serem compilados, fazendo assim com que o código malicioso faça parte do código do software legítimo. Este tipo de vírus é bem raro pois é muito difícil analisar o código fonte de um software para saber exatamente onde colocar o código malicioso minimizando as chances de ser facilmente detectado. Um exemplo deste vírus é o \textbf{Induc}\footnote{http://www.symantec.com/connect/blogs/interesting-case-induc-virus}. Surgido em 2009, este vírus tem uma ação bem interessante: caso no computador exista o ambiente de desenvolvimento (IDE) da linguagem Delphi\textsuperscript{\textregistered} nas versões de 4 a 7, o vírus modifica a biblioteca básica da linguagem fazendo com que todo e qualquer software que seja produzido neste ambiente tenha uma cópia do vírus. No entanto, o vírus em sí não causa nenhum dano, apenas se propaga para todo o sofware gerado na máquina contendo o Delphi. Apesar do Induc não fazer nenhum mal, a idéia em sí pode ser usada para qualquer fim malicioso. Tanto que em 2011 surgiram duas variações do Induc, chamadas \textbf{Induc.B} e \textbf{Induc.C}\footnote{http://blog.eset.com/2011/09/14/the-induc-virus-is-back}. Estas variações são maliciosas e usam técnicas anti-debugging e polimorfismo para ocultar seu código.
+
+No âmbito das linguagens interpretadas, os vírus de macro em Visual Basic for Applications (VBA) que infectavam documentos dos aplicativos do Office da Microsoft, são o exemplo clássico. Talvez um dos vírus mais famosos deste universo tenha sido o Melissa\footnote{http://en.wikipedia.org/w/index.php?title=Melissa\_(computer\_virus)\&oldid=537815781}. O Melissa infectava arquivos do MS-Word e usava o Outlook para enviar e-mail para todos os contatos da vítima com o fim de propagação. Em 1999 ele chegou a derrubar alguns servidores da internet porque gerou um congestionamento no sistema de e-mail. Existem muito poucos vírus polimórficos em macro. Uma análise mais detalhada deste tipo de vírus pode ser encontrada em \footnote{http://www.symantec.com/connect/articles/polymorphic-macro-viruses-part-one} e \footnote{http://www.symantec.com/connect/articles/polymorphic-macro-viruses-part-two} ou em forma de artigo em \footnote{http://craigchamberlain.com/library/malware/Polymorphic\%20Macro\%20Viruses.pdf}. Ainda dentro dos códigos interpretados, devemos citar que até mesmo os arquivos .BAT do DOS/Windows podem ser usados como vírus. Um exemplo disso é o worm Mumu\footnote{http://en.wikipedia.org/w/index.php?title=Mumu\_(computer\_worm)\&oldid=314377507}. Não vamos usar estes exemplos pois já existe muita literatura a respeito deste assunto. 
+
+Existem vírus desenvolvidos para linguagens interpretadas, como Python e Ruby e até mesmo JavaScript. Vamos usar a linguagem Ruby como exemplo para desenvolver um código bem simples para demonstrar a capacidade de polimorfismo desta linguagem. O que torna possível a execução do código do polimórfico é o comando EVAL() do Ruby. 

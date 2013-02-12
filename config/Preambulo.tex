@@ -32,6 +32,7 @@
 \usepackage{tocbibind}                      % Insere Sumário, referências no tableofcontents.
 \usepackage{color}                          % Texto colorido
 \usepackage{url}                            % Links
+\usepackage[toc,nonumberlist, footnote, acronym]{glossaries}                     % Glossário
 \usepackage{appendix}                       % Controle do apêndice
 \usepackage{ifpdf}                          % to use same .tex file for both latex & pdflatex
 %----------------------------------------------------------------
@@ -64,6 +65,14 @@
 %% Redefinindo "labels" de tabelas e figuras
 \renewcommand{\figurename}{\small\sl Figura}
 \renewcommand{\tablename}{\small\sl Tabela}
+
+%% Página de glossário
+\newcommand{\glossario}[2]{%
+  \newglossaryentry{#1}{name=#1,description={#2}}%
+  \glslink{#1}{}%
+}
+\makeindex %
+\makeglossaries %
 
 %% Página de apêndice
 \let\plainappendixpage\appendixpage

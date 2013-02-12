@@ -1,5 +1,6 @@
 all: tcc.tex
 	pdflatex tcc
+	makeindex -s tcc.ist -t tcc.glg -o tcc.gls tcc.glo
 	bibtex tcc
 	pdflatex tcc
 
