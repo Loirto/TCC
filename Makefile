@@ -8,5 +8,7 @@ view: tcc.pdf
 	evince tcc.pdf &
 
 clean:
-	rm -f *.bib *.log *.dvi *.aux *.out *.loa *.lof *.toc *.lot *.bbl *.blg *~ config/*.aux capitulos/*.aux
+	rm -f *.b* *.g* *.lo* *.i*  *~ 
+	rm -f *.acn *.pdf *.dvi *.aux *.out *.toc
+	rm -f config/*.aux capitulos/*.aux
 

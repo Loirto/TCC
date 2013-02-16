@@ -2,7 +2,7 @@
 
 \section{O que é o polimorfismo?}
 
-	Segundo o dicionário Aurélio\footnote{http://www.dicionariodoaurelio.com/}\\
+	Segundo o dicionário Aurélio\cite{Aurelio:1}\\
 \textbf{Polimorfismo}. s.m. Qualidade do que é polimorfo.\\
 \textbf{Polimorfo}. adj. Que é sujeito a mudar de forma. Que se apresenta sob diversas formas.
 
@@ -12,9 +12,9 @@ O polimorfismo está diretamente ligado à criptografia. O principal objetivo de
 \subsection{Polimorfismo usado de forma legal}
 Quando se ouve falar em código polimórfico, a primeira associação que se faz é com vírus de computador. No entanto, existem diversas aplicações legais do código polimórfico.
 
-Empresas que desenvolvem código de proteção contra cópia ilegal de software usam código polimórfico para dificultar a engenharia reversa do software de proteção e do software protegido visando dificultar o trabalho de crackers que criam patches para fazer com que o software pense que está registrado legalmente\footnote{Exemplos: http://www.webtoolmaster.com/packer.htm e http://www.pelock.com/products/pelock}. Atualmente, todas as empresas de proteção contra cópia usam polimorfismo juntamente com compactação de dados e técnicas anti-debugging para proteger o software. Alguns usam também códigos metamórficos. O código metamórfico difere do polimórfico por usar técnicas de recompilação/reconstrução fazendo com que cada versão seja única não somente na aparência mas também no código binário executável.
+Empresas que desenvolvem código de proteção contra cópia ilegal de software usam código polimórfico para dificultar a engenharia reversa do software de proteção e do software protegido visando dificultar o trabalho de crackers que criam patches para fazer com que o software pense que está registrado legalmente\cite{soft:1,soft:2}. Atualmente, todas as empresas de proteção contra cópia usam polimorfismo juntamente com compactação de dados e técnicas anti-debugging para proteger o software. Alguns usam também códigos metamórficos. O código metamórfico difere do polimórfico por usar técnicas de recompilação/reconstrução fazendo com que cada versão seja única não somente na aparência mas também no código binário executável.
 
-Outro uso legal do código polimórfico seria para gerar uma marca digital do software, pois cada versão seria única tornando possível assim dizer quem é o dono da versão que está em circulação no caso de haver alguma cópia ilegal. A indústria fonográfica já usa algo semelhante a isso nas músicas\footnote{http://en.wikipedia.org/wiki/Digital\_watermarking} com a finalidade de descobrir quem disponibilizou cópias ilegais. O mais importante é que esta medida não altera em nada a qualidade do áudio, passando totalmente despercebida pelo usuário. Também é usado este artifício em máquinas fotográficas e dispositivos de gravação. Cada dispositivo possui sua marca digital única fazendo assim sua 'assinatura' em cada foto ou filme produzidos pelo dispositivo.
+Outro uso legal do código polimórfico seria para gerar uma marca digital do software, pois cada versão seria única tornando possível assim dizer quem é o dono da versão que está em circulação no caso de haver alguma cópia ilegal. A indústria fonográfica já usa algo semelhante a isso nas músicas\cite{wiki:3} com a finalidade de descobrir quem disponibilizou cópias ilegais. O mais importante é que esta medida não altera em nada a qualidade do áudio, passando totalmente despercebida pelo usuário. Também é usado este artifício em máquinas fotográficas e dispositivos de gravação. Cada dispositivo possui sua marca digital única fazendo assim sua 'assinatura' em cada foto ou filme produzidos pelo dispositivo.
 
 \subsection{Como funciona?}
 
@@ -39,6 +39,7 @@ Neste exemplo, A representa o valor de 8, 16, 32 ou 64 bits a ser codificado e B
 
 Apesar desta facilidade, um código feito com esta codificação simplista pode ser facilmente detectado através de análise de padrões. A seguir, vamos demostrar o uso da codificação via operação ou exclusivo, usando o código abaixo.
 
+\pagebreak[2]
 {{{
 \renewcommand{\baselinestretch}{1.0}
 \begin{verbatim}
@@ -102,11 +103,12 @@ Para evitar a formação de padrões, existem várias técnicas que podem ser ap
 \item Somar a palavra atual com a anterior já codificada, ou aplicar a operação ou exclusivo com a palavra anterior. Neste caso a codificação acontece do início para o fim e a decodificação acontece do fim para o começo. No caso da soma ou subtração tem que tomar cuidado extra por causa do overflow ou underflow. Por exemplo, se somar 20 ao byte de valor 250 o resultado seria 270, que não é possível de representar em 8 bits. No caso da soma a técnica usada é trabalhar usando módulo. No caso, 270 \% 256 = 14. Na verdade o overflow/underflow são desejados pois ajudam a camuflar os resultados. 
 \item Embaralhar a ordem da informação. Exemplo: depois de codificado, trocar os itens de posição par com os de posição ímpar.
 \item Inserção de lixo no meio dos dados reais. Exemplo: a cada 50 bytes codificados, é inserido 7 bytes de lixo. Este lixo obviamente não tem significado algum e será ignorado na decodificação. No entanto, atrapalha em muito quem está tentando decifrar o código, uma vez que não tem como saber se os dados fazem ou não parte do código real.
-\item Utilização de chaves de tamanho variado. A chave pode ser uma sequência de números aleatórios, de tamanho aleatório. Esta sequência aleatória geralmente não é aleatória mas sim pseudoaleatória\footnote{http://pt.wikipedia.org/w/index.php?title=Sequ\%C3\%AAncia\_pseudoaleat\%C3\%B3ria\&oldid=30480084}. Ou é usada uma tabela pré-definida ou uma função que gera a sequência à partir da chave inicial. Neste caso, a grande dificuldade é descobrir a tabela ou a função que gera a chave.
+\item Utilização de chaves de tamanho variado. A chave pode ser uma sequência de números aleatórios, de tamanho aleatório. Esta sequência aleatória geralmente não é aleatória mas sim pseudoaleatória\cite{wiki:4}. Ou é usada uma tabela pré-definida ou uma função que gera a sequência à partir da chave inicial. Neste caso, a grande dificuldade é descobrir a tabela ou a função que gera a chave.
 \end{itemize}
 
 Vamos modificar a nossa rotina para usar a operação ou exclusivo juntamente com rotação de bits para vermos se conseguimos nos livrar da formação de padrões. O código modificado está listado abaixo.
 
+\pagebreak[2]
 {{{
 \renewcommand{\baselinestretch}{1.0}
 \begin{verbatim}
@@ -175,10 +177,10 @@ int main(void) {
   }
   printf("Texto decodificado: [%s]\n", codificado);
   return 0;
-
 }
 \end{verbatim}
 }}}
+
 
 O código mudou e agora a saída não pode mais ser em texto por conta de que certamente teremos muitos caracteres não ASCII. Optamos por mostrar o resultado em hexadecimal. A mudança em relação ao primeiro código que implementamos está apenas na utilização de rotação de bits. Fizemos um código simples apenas para ser didático e mostrar o funcionamento na prática. Usamos um artifício de que quando a posição que estamos codificando for par fazemos a rotação à esquerda. Quando for ímpar, fazemos a rotação à direita. Também variamos o número de bits rotacionados de 1 a 3, conforme vamos avançando na codificação. Novamente frisamos que trata-se de um código simples, sem pretensão de ser perfeito nem otimizado. Codificações de criptografia forte com análise estatística de padrões podem ser encontradas em livros que tratam do assunto de criptografia.
 
@@ -231,6 +233,7 @@ P & P \% 2 & S & C & C$_{bin}$ & C$ \oplus $54 & V & X & R[P]\\
 \hline
 \end{tabular}
 \normalsize
+
 
 Para entender a tabela acima:
 \begin{itemize}
