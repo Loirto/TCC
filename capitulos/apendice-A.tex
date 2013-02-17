@@ -1,12 +1,11 @@
-\chapter{Estrutura de Arquivos PE e ELF}\label{ap:A}
+\chapter{Estrutura de Arquivos PE e ELF}
 
 \section{Arquivo PE}
 
-O formato de arquivo PE (Portable Executable Format File) é o último
-utilizado para plataforma Microsoft.
+O formato de arquivo PE (Portable Executable Format File) é o mais atual para plataforma Microsoft.
 
 
-\subsection{Estrutura de arquivo PE}\footnote{Melhores informações: http://www.hardware.com.br/tutoriais/executavel-win32/} \footnote{Undocumented PECOFF http://pecoff.reversinglabs.com/}
+\subsection{Estrutura de arquivo PE.}
 \begin{list}{}
 \item {\begin{tabular}{|l|c|}
 \hline 
@@ -97,6 +96,62 @@ Tamanho Reservado da HEAP: Tamanho reservado a HEAP.
 
 Tamanho efetivo da HEAP: Valor efetivo para a HEAP.
 
+
+\subsction{Cabeçalho}
+
+Seu cabeçalho descreve partes importantes para o modelo, não é presente ao inicio do arquivo pois está 
+ é reservada para compatibilidade com o DOS, que nada mais é que mensagens de aviso que o programa
+ não funciona nesta versão.
+ São alguns campos importantes para este documento:
+ 
+  
+ WORD Machine: Indica a CPU para qual o arquivo foi construido. Diversos virus checam este
+ campo para verificar ase a versão é a mesma para a qual foi projetado. Outros virus não o fazem
+  e infectam qualquer arquivo o que gera erros para a abertura do arquivo quando é executado em
+  uma arquitetura diferente. Este é um risco para virus multiplataforma, poderiam atacar
+  diversas arquiteturas com somente um código.
+
+WORD NumberOfSections: São o número de seções em um executável \(DLL\). Este campo tem 
+ diversas funções para um virus. Uma delas é que o virus a incrementa para colocar uma 
+ parte de si nesta seção. A tabela de seções é alterada no mesmo instante que ocorre essa
+ mudança. Sistemas baseados em Windows NT aceitam no máximo 96 seções em um arquivo PE, 
+ os baseados em Windows 9x não verificam este campo.
+
+WORD Characteristics: Contém as flags de informação do arquivo. A maioria dos virus
+ verificam para ter a certeza de que é um executável, outros \(construidos para infectar
+ alguma DLL especifica\) para ter certeza que o arquivo é uma DLL. Este campo normalmente
+ não é alterado pelos virus.
+
+WORD Magic: O cabeçalho começa inicialmente com um campo \"mágico\". Os virus o verificam
+ para a certeza de que o infectado é um executável comum e não uma ROM ou outro tipo de arquivo.
+
+DWORD SizeOfCode: Este campo tem o teto do tamanho de todas as seções executáveis.
+ Geralmente os virus não alteram este valor ao adicionar uma nova seção, mas provavelmente
+ isso mude nos virus futuros.
+
+DWORD AddressOfEntryPoint:  É o endereço  de execução que a imagem inicia. Este valor
+ normalmente aponta para a seção de texto. Campo crucial para maioria dos virus Win32.
+ O campo é alterado pela grande maioria dos tipo de infecções para o ponto de entrado do código malicioso.
+ 
+DWORD ImageBase: Quando o ligador cria p executável, assume que a imagem é mapeada em um local espécifico da memória.
+ Este endereço fica armazenado neste campo. Se a imagem pode ser lida de um local especifico, não necessita de realocações pelo carregador.
+ Este campo é utilizado por diversos virus para calcular o endereço de alguns itens, mas não é alterado.
+
+DWORD SectionAlignment: quando o executável é mapeado em memória, cada seção inicia de um endereço virtual que é mútiplo deste valor \(minimo de 4 kb\),  Grande parte
+ dos virus o utilizam para o local correto para se colocar, mas não alteram este campo.
+
+DWORD FileAlignment: Nos arquivos PE, os dados em si iniciam de um multiplo deste valor. Os virus não alteram este valor mas usam de forma similar ao comentado acima \(SectionAlignment\).
+
+DWORD SizeOfImage: Quando o ligador cria a imagem, calcula o tamanho total das partes da imagem que o carregador deve carregar.
+ Isso inclui o tamanho da região inicial da imagem base através do fim da última seção. No fim da última seção há o teto do multiplicador do alinhamento da seção.
+ Quase todos os arquivos infectados utilizam este valor \(SizeOfImage\). Muitos calculam o campo incorretamente, o que causa a impossibilidade de execução sob Windows NT,
+ exatamente pelo motivo de que o Windows 9x não verifica este campo ao executar o arquivo. Para alegria de muitos os criadores de virus não testam muito suas criações. Maior parte
+ dos virus de Windows 9x contém esta falha. Muitos antivirus calculam errado este campo na desinfecção, o que causa um executável que era compátivel com windows NT deixe de ser compátivel 
+ quando desinfectado.
+
+ DWORD Checksum: Este é o checksum do arquivo. Maior parte dos executáveis registram 0 neste campo. Entretando Dlls e drivers devem tem um checksum diferente de 0. 
+  Windows 9x ignora este campo e carrega o arquivo, o que facilita sua infecção no KERNEL32.dll. Este campo é utilizado por muitos virus para representar como marcação, para evitar
+  uma dupla infecção, outros tipos de virus recalcula-o para uma infecção mais efetiva.
 
 \subsection{Tabela de Seções}
 
@@ -193,196 +248,4 @@ pelo PE ou pelo ligador. Somente é definido pelo PE os dados da tabela
 de diretório de debug.
 
 
-\section{Arquivo ELF}
-   O formato ELF(Executable and Linkable Format, anteriormente Extensible Linking Format) é um tipo padrão para formato de arquivos executáveis, códigos, bibliotecas compartilhadas e core dumps. Foi facilmente aceito em diversas distribuições de Unix. 
-   Em 1999 foi escolhido como o arquivo binário padrão para o sistemas Unix e baseados em Unix. Diferentemente dos executáveis proprietários ele é flexivel e extensivel, e não está limitado para uma arquitetura especifica. Pode ser adotado por diferentes sistema operacionais e outras plataformas.
 
-\subsection{A estrutura do arquivo ELF}
-
-\begin{list}{}
-\item {\begin{tabular}{|l|c|}
-\hline
- Arquivo Realocável & \tabularnewline
-\cline{1-1}  
-Cabeçalho ELF & \tabularnewline
-\cline{1-1}
-Tabela do cabeçalho do programa (opcional) & \tabularnewline
-\cline{1-1} 
-seção 1 & \tabularnewline
-\cline{1-1} 
-seção 2 & \tabularnewline
-\cline{1-1} 
-... & \tabularnewline
-\cline{1-1}
-seção n & \tabularnewline
-\cline{1-1} 
-Tabela de cabeçalho de seção & \tabularnewline
-\cline{1-1}
-\end{tabular}}
-\end{list}
-
-\begin{list}{}
-\item {\begin{tabular}{|l|c|}
-\hline
-Arquivo Carregável &\tabularnewline
-\cline{1-1}
-Cabeçalho ELF & \tabularnewline
-\cline{1-1}
-Tabela do cabeçalho do programa & \tabularnewline
-\cline{1-1} 
-Segmento 1 & \tabularnewline
-\cline{1-1} 
- & \tabularnewline
-\cline{1-1}
-Segmento 2 & \tabularnewline
-\cline{1-1}
-... & \tabularnewline
-\cline{1-1}
-Tabela de cabeçalho de seção(opcional) & \tabularnewline
-\cline{1-1}
-\end{tabular}}
-\end{list}
-
-
-\subsection{Cabeçalho}
-   No cabeçalho de um arquivo ELF, existe uma ordem especifica, já para as seções e segmentos não.
-   Este contém toda a organização do arquivo, a partir dele que podemos ter acesso a outras partes utilizando o offset.
-   Temos as identificações:
-
-   e\_ident: A identificação do arquivo.
-
-   e\_type: Tipo de objeto.
-
-   e\_machine: Arquitetura do arquivo.
-   
-   e\_version: A sua versão.
-  
-   e\_entry: Endereço virtual para ponto de inicio do processo.
-   
-   e\_phoff: O tamanho do cabeçalho em bytes.
-   
-   e\_phentsize: O tamanho de uma entrada no cabeçalho do ELF.
-   
-   e\_phnum: O número de entradas no cabeçalho.
-   
-   e\_flags: São as flags para o processador.
-   
-   e\_ehsize: O tamanho do header ELF em bytes.
-   
-   e\_shoff: O tamanho do cabeçalho da seção.
-   
-   e\_shentsize: O tamanho de uma entrada no cabeçalho da seção.
-
-   e\_shnum- O entradas no cabeçalho da seção.
-   
-   e\_shstrndx - Indice das seções linkado com a tabela de strings.
-
-
-\subsection {Identificação}
-  Nos 4 bytes iniciais do cabeçalho existe a especificação de como interpreta-lo, não considera o sistema que o le e nem o resto do arquivo.
-\subsection {Entry Point Address}
-  No e\_entry indica o endereço para onde o sistema irá iniciar a execução dos códigos da seção de texto. Este endereço aponta para o inicio do linkador\(\_start\) e não para o inicio do sistema que o programador define (main).
-
-\subsection {Tabela de Cabeçalhos do Programa (PHT)}
-   Descreve a criação do processo para o sistema. É obrigatória para os arquivos executáveis e opcional para os realocáveis. Abaixo segue a descrição de alguns dos identificadores:
-   
-   p\_type: Tipo de segmento e como interpretar a informação.
-
-   p\_offset: Offset a partir do começo ao primeiro byte do segmento.
-
-   p\_vaddr: Endereço virtual do primeiro byte do segmento.
-
-   p\_paddr: Endereço físico, reservado para quando o é utilizado.
-
-   p\_filesz: Número de bytes do segmento.
-
-   p\_memsz: Número de bytes do segmento na memória.
-
-   p\_flags: Flags utilizadas no segmento.
-
-   p\_align: Valor para alinhamento na memória e no arquivo. Quando 0 ou 1 indica que não é necessário, se o for deve ser positivo e em potência de 2.
-
-\subsection {Tabela de Cabeçalhos de Seção (SHT)}
-   Descreve as seções. Cada entrada é definida pela seção e possue informações dela.
-   Ela é definida como um vetor, o identificador e\_shoffdo cabeçalho que define o offset para localizar o inicio e o e\_shentsize do tamanho de cada bloco.
-   
-   sh\_name: Indice para a tabela de string de cabeçalho de seção, descrita acima.
-
-   sh\_type: Tipo semântico da seção.
-
-   sh\_flags: Flags da seção (one-bit, 0 ou 1), que descreve seus atributos.
-
-   sh\_addr: Endereço da seção, caso a seção apareça em memória, senão tem o valor 0.
-
-   sh\_offset: Indica o inicio da seção no arquivo.
-   
-   sh\_size: Tamanho da seção em bytes.
-   
-   sh\_link: Contém o link para a tabela de cabeçalho da seção.
-   
-   sh\_info: Informação extra, interpretado junto com o tipo de seção.
-   
-   sh\_addralign: Verificação do alinhamento dos blocos definidos por sh\_addr, sh\_addr deve ser divisivel por sh\_addralign.
-
-
-   sh\_entsize: Tamanho fixo da tabela de seção, se não for deste tipo terá 0.
-
-\subsection {Seções Especiais}
-   .bss: Dados não inicializados que são utilizados no programa em memória. Inicia com 0 no inicio do programa, este não ocupa espaço no programa.
-   
-   .comment: Informações de controle de versão.
-
-   .data ou .data1: Dados inicializados utilizados no programa em memória (tem também a .data1)
-
-   .debug: Informações para debugar os simbolos.
-   
-   .dynamic: Informações para linkagem dinâmica.
-   
-   .dynstr: Strings para a linkagem dinâmica.
-   
-   .dynsym: Tabela de símbolos da linkagem dinâmica.
-
-   .fini: Instruções executáveis para finalização do programa.
-
-   .got: Contém a Global Offset Table \(GOT\).
-
-   .hash: Hashtable de símbolos.
-
-   .init: Instruções para inicialização do programa.
-
-   .interp: Caminho para o programa interpretador.
-
-   .line: Número da linha \(no código\) para debugar.
-   
-   .note: Informações de formato.
-   
-   .plt: Contém a Procedure Linkage Tabel \(PLT\).
-
-   .relname ou .relaname: Informações para realocação.
-
-   .rodata ou .rodata1: Dados para somente de leitura, utilizados em segmento que não permite escrita.
-
-   .shstrtab: Nomes das seções.
-
-   .strtab: Nomes associados as entradas na tabela de simbolos.
-
-   .symtab: A tabela de símbolos.
-
-   .text: Instruções executáveis do programa.
-
-\subsection {Tabela de Strings}
-   Tabela onde armazena strings, terminadas com '\\0'. O arquivo objeto utiliza-as para representar os simbolos e nomes das seções. É acessada através de seus indices. O campo sh\_name do cabeçalho da seção possue o indice para esta tabela que o é indicado pela e\_shstrndx do cabeçalho do programa.
-\subsection {Tabela de Símbolos (Symbol table)}
-   Contém referencias e definições para localizar e realocar no programa.
-   
-   st\_name: Indice para a tabela de strings que contém o nome do símbolo. Se possui 0, o símbolo não tem nome.
-
-   st\_value: Valor do símbolo.
-
-   st\_size: Tamanho do símbolo, caso haja algum senão possui o valor 0.
-
-   st\_info: Tipo do símbolo e atributos.
-
-   st\_other: Possui o valor 0, sem uma definição.
-   
-   st\_shndx: Indice para o cabeçalho de seção utilizada.
