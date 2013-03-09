@@ -97,6 +97,31 @@ Quando é chamada uma interrupção, a rotina recebe na pilha o endereço de ret
 %\glossario{virus}{teste de descrição do glossário}
 Vírus de computador podem ser escritos em qualquer linguagem. Alguns vírus são escritos para infectar o próprio código fonte dos programas, antes mesmo deles serem compilados, fazendo assim com que o código malicioso faça parte do código do software legítimo. Este tipo de vírus é bem raro pois é muito difícil analisar o código fonte de um software para saber exatamente onde colocar o código malicioso minimizando as chances de ser facilmente detectado. Um exemplo deste vírus é o \textbf{Induc}\cite{symantec:4}. Surgido em 2009, este vírus tem uma ação bem interessante: caso no computador exista o ambiente de desenvolvimento (IDE) da linguagem Delphi\textsuperscript{\textregistered} nas versões de 4 a 7, o vírus modifica a biblioteca básica da linguagem fazendo com que todo e qualquer software que seja produzido neste ambiente tenha uma cópia do vírus. No entanto, o vírus em sí não causa nenhum dano, apenas se propaga para todo o sofware gerado na máquina contendo o Delphi. Apesar do Induc não fazer nenhum mal, a idéia em sí pode ser usada para qualquer fim malicioso. Tanto que em 2011 surgiram duas variações do Induc, chamadas \textbf{Induc.B} e \textbf{Induc.C}\cite{esset:1}. Estas variações são maliciosas e usam técnicas anti-debugging e polimorfismo para ocultar seu código.
 
-No âmbito das linguagens interpretadas, os vírus de macro em Visual Basic for Applications (VBA) que infectavam documentos dos aplicativos do Office da Microsoft, são o exemplo clássico. Talvez um dos vírus mais famosos deste universo tenha sido o Melissa\cite{wiki:11}. O Melissa infectava arquivos do MS-Word e usava o Outlook para enviar e-mail para todos os contatos da vítima com o fim de propagação. Em 1999 ele chegou a derrubar alguns servidores da internet porque gerou um congestionamento no sistema de e-mail. Existem muito poucos vírus polimórficos em macro. Uma análise mais detalhada deste tipo de vírus pode ser encontrada em \cite{symantec:5,symantec:6} ou em forma de artigo em \cite{szappanos:1}. Ainda dentro dos códigos interpretados, devemos citar que até mesmo os arquivos .BAT do DOS/Windows podem ser usados como vírus. Um exemplo disso é o worm Mumu\cite{wiki:12}. Não vamos usar estes exemplos pois já existe muita literatura a respeito deste assunto. 
+No âmbito das linguagens interpretadas, os vírus de macro em Visual Basic for Applications (VBA) que infectavam documentos dos aplicativos do Office da Microsoft, são o exemplo clássico. Talvez um dos vírus mais famosos deste universo tenha sido o Melissa\cite{wiki:11}. O Melissa infectava arquivos do MS-Word e usava o Outlook para enviar e-mail para todos os contatos da vítima com o fim de propagação. Em 1999 ele chegou a derrubar alguns servidores da internet porque gerou um congestionamento no sistema de e-mail. Existem muito poucos vírus polimórficos em macro. Uma análise mais detalhada deste tipo de vírus pode ser encontrada em \cite{symantec:5,symantec:6} ou em forma de artigo em \cite{szappanos:1}. Ainda dentro dos códigos interpretados, devemos citar que até mesmo os arquivos .BAT do DOS/Windows podem ser usados como vírus. Um exemplo disso é o worm Mumu\cite{wiki:12}. 
 
-Existem vírus desenvolvidos para linguagens interpretadas, como Python e Ruby e até mesmo JavaScript. Vamos usar a linguagem Ruby como exemplo para desenvolver um código bem simples para demonstrar a capacidade de polimorfismo desta linguagem. O que torna possível a execução do código do polimórfico é o comando EVAL() do Ruby. 
+Existem vírus desenvolvidos para linguagens interpretadas, como Python e Ruby e até mesmo JavaScript. No Ruby, por exemplo, o que torna possível a execução do código do polimórfico é a função EVAL(). O polimorfismo em linguagens interpretadas não é necessariamente menos eficiente que dos códigos em assembler mas é diferente uma vez que existe a dependência do interpretador da linguagem. Esta dependência impõe certas limitações, naturalmente, derivadas da estrutura de cada linguagem.
+
+Vamos descrever brevemente algumas das técnicas usadas para fazer o polimorfismo nas linguagens interpretadas. Várias destas técnicas são analisadas em \cite{szappanos:1}.
+
+\subsection{Criptografia}
+Criptografias simples podem ser feitas no código. Por exemplo, usando a função EVAL do Ruby, é possível fazer uma criptografia super simples, transformando o código fonte do vírus na codificação BASE64. Isso já seria eficiente para esconder o código da maioria dos usuários comuns. Por exemplo, o código abaixo não é nada intuitivo saber o seu conteúdo:
+
+\textbf{UFJJTlQgIlZPQ8ogRk9JIElORkVDVEFETyEi}
+
+Foi codificado em BASE64 usando uma ferramenta online\footnote{Disponível em http://www.motobit.com/util/base64-decoder-encoder.asp}. Se decodificarmos o texto anterior, teremos:
+
+\textbf{PRINT "VOCÊ FOI INFECTADO!"}
+
+Para executar códigos deste tipo basta atribuir o texto codificado à uma variável, decodificar e executar EVAL. Claro, estamos sendo simplistas mas o intuito é demonstrar as possibilidades de forma didática.
+
+\subsection{Mudança de nome de variáveis}
+Mudar o nome de variáveis e/ou nome de funções/procedimentos a cada nova geração também é uma técnica que dificulta a identificação do código. As variáveis podem ter nomes com letras randômicas de tamanho fixo ou tamanho variável. O conceito é simples e na prática é bastante utilizada.
+
+\subsection{Código inerte}
+Inserção de código que não faz nada. Por exemplo: \textbf{A = A} ou \textbf{B = A; A = B}. Ainda pode-se usar loops desnecessários, chamadas a rotinas que não fazem nada. Qual a finalidade deste tipo de código? A de sempre: tornar uma geração diferente da anterior sem modificar o funcionamento do vírus.
+
+\subsection{Montagem dinâmica de código}
+Tendo à disposição uma função tipo EVAL(), é possível montar o código que será executado de forma dinâmica. Considere o código abaixo:
+
+
+
