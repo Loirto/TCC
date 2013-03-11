@@ -52,7 +52,7 @@ Vírus mais sofisticados conseguem detectar quando estão sendo executados em um
 %\footnote{research.dissect.pe/docs/blackhat2012-paper.pdf}
 %\footnote{Software: http://newgre.net/idastealth}
 %\footnote{Análise vírus Invir http://www.peterszor.com/invirs.pdf}
-Quando um anti-virus não consegue reconhecer o vírus, uma amostra do arquivo infectado é enviado para análise por técnicos da empresa de antivírus, que usarão técnicas de engenharia reversa para analisar o funcionamento do código malicioso. Assim que conseguirem entender o funcionamento do vírus, uma nova vacina é criada. Portanto, é de grande importância para o desenvolvedor do código malicioso que este processo seja dificultado ao máximo, prorrogando assim o tempo de vida útil do vírus, worm, malware ou spyware. 
+Quando um antivírus não consegue reconhecer o vírus, uma amostra do arquivo infectado é enviado para análise por técnicos da empresa de antivírus, que usarão técnicas de engenharia reversa para analisar o funcionamento do código malicioso. Assim que conseguirem entender o funcionamento do vírus, uma nova vacina é criada. Portanto, é de grande importância para o desenvolvedor do código malicioso que este processo seja dificultado ao máximo, prorrogando assim o tempo de vida útil do vírus, worm, malware ou spyware. 
 
 A engenharia reversa é largamente utilizada todos os dias, com propósitos nobres e outros não tão nobres assim:
 \begin{itemize}
@@ -106,13 +106,23 @@ Vamos descrever brevemente algumas das técnicas usadas para fazer o polimorfism
 \subsection{Criptografia}
 Criptografias simples podem ser feitas no código. Por exemplo, usando a função EVAL do Ruby, é possível fazer uma criptografia super simples, transformando o código fonte do vírus na codificação BASE64. Isso já seria eficiente para esconder o código da maioria dos usuários comuns. Por exemplo, o código abaixo não é nada intuitivo saber o seu conteúdo:
 
-\textbf{UFJJTlQgIlZPQ8ogRk9JIElORkVDVEFETyEi}
+\textbf{cHJpbnQgIlZvY2UgZm9pIGluZmVjdGFkbyEi}
 
 Foi codificado em BASE64 usando uma ferramenta online\footnote{Disponível em http://www.motobit.com/util/base64-decoder-encoder.asp}. Se decodificarmos o texto anterior, teremos:
 
-\textbf{PRINT "VOCÊ FOI INFECTADO!"}
+\textbf{print "Voce foi infectado!"}
 
 Para executar códigos deste tipo basta atribuir o texto codificado à uma variável, decodificar e executar EVAL. Claro, estamos sendo simplistas mas o intuito é demonstrar as possibilidades de forma didática.
+
+{{{
+\renewcommand{\baselinestretch}{1.0}
+\begin{verbatim}
+require 'base64';
+str='cHJpbnQgIlZvY2UgZm9pIGluZmVjdGFkbyEi'
+eval (Base64.decode64(str))
+print "\n"
+\end{verbatim}
+}}}
 
 \subsection{Mudança de nome de variáveis}
 Mudar o nome de variáveis e/ou nome de funções/procedimentos a cada nova geração também é uma técnica que dificulta a identificação do código. As variáveis podem ter nomes com letras randômicas de tamanho fixo ou tamanho variável. O conceito é simples e na prática é bastante utilizada.
@@ -121,7 +131,28 @@ Mudar o nome de variáveis e/ou nome de funções/procedimentos a cada nova gera
 Inserção de código que não faz nada. Por exemplo: \textbf{A = A} ou \textbf{B = A; A = B}. Ainda pode-se usar loops desnecessários, chamadas a rotinas que não fazem nada. Qual a finalidade deste tipo de código? A de sempre: tornar uma geração diferente da anterior sem modificar o funcionamento do vírus.
 
 \subsection{Montagem dinâmica de código}
-Tendo à disposição uma função tipo EVAL(), é possível montar o código que será executado de forma dinâmica. Considere o código abaixo:
+Tendo à disposição uma função tipo EVAL(), é possível montar o código que será executado de forma dinâmica. Considere o código escrito em Ruby:
 
 
+{{{
+\renewcommand{\baselinestretch}{1.0}
+\begin{verbatim}
+axzd='in'
+euac='c'
+ehxx='o'
+cojf=' '
+qtze='r'
+ezec='p'+qtze+axzd+'t'+cojf+''+34.chr+'V'+ehxx+'c'+
+''+'e'+cojf+'f'+ehxx+105.chr+32.chr+axzd+'fe'+euac+
+116.chr+97.chr+'do'+33.chr+92.chr+110.chr+34.chr
+eval(ezec)
+\end{verbatim}
+}}}
 
+Este é um exemplo bem simples e didático de mudança de nome de variável e criptografia. Neste exemplo, as variáveis possuem 4 caracteres de comprimento e são formadas por letras aleatórias. O conteúdo das variáveis também pode ser aleatório, uma vez que é usado para formar o comando que será de fato executado usando a função EVAL. Note a presença de conversão explícita de números pra caracteres. Isso dá uma flexibilização a mais para a rotina que cria as versões do código, uma vez que ela pode ou usar as variáveis, ou fazer a conversão explícita do caracter.
+
+Também é possível montar dinamicamente o código a ser executado chamando funções que fazem parte da codificação. Estas funções podem inserir partes do código em locais diferentes e não necessariamente apenas ao final da string. Também é possível fazer com que execuções parciais do código ocorram, usando substrings. Enfim, há muitas possibilidades e todas só são possíveis graças ao código ser interpretado e existir uma função que interprete e execute em runtime.
+
+Ao executar este código chamando o interpretador Ruby, será mostrado na saída a mensagem
+
+\textbf{Voce foi infectado!}
