@@ -1,0 +1,13 @@
+#! /bin/sh
+
+# Aqui cria-se a cópia do repositório
+sudo apt-get install git
+git clone git@github.com:Loirto/TCC.git
+
+# Para garantir a compilação os seguintes pacotes do latex são necessários
+sudo apt-get install texlive-latex-extra
+sudo apt-get install texlive-bibtex-extra
+sudo apt-get install texlive-fonts-recommended
+
+# Para garantir a correta hifenização, é necessário instalar
+sudo apt-get install texlive-lang-portuguese
