@@ -43,7 +43,7 @@ Temos no cabeçalho uma estrutura dividida em campos com palavras
 de 4 bytes, enfatizamos alguns deles abaixo:
 
 
-Tipo de CPU: o campo informa qual o tipo de CPU para a qual o executavel
+Tipo de CPU: o campo informa qual o tipo de CPU para a qual o executável
 foi projetado.
 
 
@@ -70,7 +70,7 @@ OS MAJOR/MINOR = Versões limitantes (maior e menor) do sistema operacional.
 
 
 Tamanho da Imagem: Tamanho virtual da imagem, contando todos os cabeçalhos.
-E o tamanho total deve ser multiplo da seção de alinhamento.
+E o tamanho total deve ser múltiplo da seção de alinhamento.
 
 
 Tamanho do Cabeçalho: Tamanho total do cabeçalho. O tamanho combinado
@@ -104,62 +104,62 @@ Tamanho efetivo da HEAP: Valor efetivo para a HEAP.
  São alguns campos importantes para este documento:
  
   
- WORD Machine: Indica a CPU para qual o arquivo foi construido. Diversos virus checam este
- campo para verificar ase a versão é a mesma para a qual foi projetado. Outros virus não o fazem
+ WORD Machine: Indica a CPU para qual o arquivo foi construído. Diversos vírus checam este
+ campo para verificar ase a versão é a mesma para a qual foi projetado. Outros vírus não o fazem
   e infectam qualquer arquivo o que gera erros para a abertura do arquivo quando é executado em
-  uma arquitetura diferente. Este é um risco para virus multiplataforma, poderiam atacar
+  uma arquitetura diferente. Este é um risco para vírus multiplataforma, poderiam atacar
   diversas arquiteturas com somente um código.
 
 WORD NumberOfSections: São o número de seções em um executável \(DLL\). Este campo tem 
- diversas funções para um virus. Uma delas é que o virus a incrementa para colocar uma 
+ diversas funções para um vírus. Uma delas é que o vírus a incrementa para colocar uma 
  parte de si nesta seção. A tabela de seções é alterada no mesmo instante que ocorre essa
  mudança. Sistemas baseados em Windows NT aceitam no máximo 96 seções em um arquivo PE, 
  os baseados em Windows 9x não verificam este campo.
 
-WORD Characteristics: Contém as flags de informação do arquivo. A maioria dos virus
- verificam para ter a certeza de que é um executável, outros ,construidos para infectar
+WORD Characteristics: Contém as flags de informação do arquivo. A maioria dos vírus
+ verificam para ter a certeza de que é um executável, outros ,construídos para infectar
  alguma DLL especifica, para ter certeza que o arquivo é uma DLL. Este campo normalmente
- não é alterado pelos virus.
+ não é alterado pelos vírus.
 
-WORD Magic: O cabeçalho começa inicialmente com um campo "mágico". Os virus o verificam
+WORD Magic: O cabeçalho começa inicialmente com um campo "mágico". Os vírus o verificam
  para a certeza de que o infectado é um executável comum e não uma ROM ou outro tipo de arquivo.
 
 DWORD SizeOfCode: Este campo tem o teto do tamanho de todas as seções executáveis.
- Geralmente os virus não alteram este valor ao adicionar uma nova seção, mas provavelmente
- isso mude nos virus futuros.
+ Geralmente os vírus não alteram este valor ao adicionar uma nova seção, mas provavelmente
+ isso mude nos vírus futuros.
 
 DWORD AddressOfEntryPoint:  É o endereço  de execução que a imagem inicia. Este valor
- normalmente aponta para a seção de texto. Campo crucial para maioria dos virus Win32.
+ normalmente aponta para a seção de texto. Campo crucial para maioria dos vírus Win32.
  O campo é alterado pela grande maioria dos tipo de infecções para o ponto de entrado do código malicioso.
  
-DWORD ImageBase: Quando o ligador cria p executável, assume que a imagem é mapeada em um local espécifico da memória.
+DWORD ImageBase: Quando o ligador cria p executável, assume que a imagem é mapeada em um local especifico da memória.
  Este endereço fica armazenado neste campo. Se a imagem pode ser lida de um local especifico, não necessita de realocações pelo carregador.
- Este campo é utilizado por diversos virus para calcular o endereço de alguns itens, mas não é alterado.
+ Este campo é utilizado por diversos vírus para calcular o endereço de alguns itens, mas não é alterado.
 
-DWORD SectionAlignment: quando o executável é mapeado em memória, cada seção inicia de um endereço virtual que é mútiplo deste valor, de no minimo de 4 kb . Grande parte
- dos virus o utilizam para o local correto para se colocar, mas não alteram este campo.
+DWORD SectionAlignment: quando o executável é mapeado em memória, cada seção inicia de um endereço virtual que é múltiplo deste valor, de no minimo de 4 kb . Grande parte
+ dos vírus o utilizam para o local correto para se colocar, mas não alteram este campo.
 
-DWORD FileAlignment: Nos arquivos PE, os dados em si iniciam de um multiplo deste valor. Os virus não alteram este valor mas usam de forma similar ao comentado acima \(SectionAlignment\).
+DWORD FileAlignment: Nos arquivos PE, os dados em si iniciam de um múltiplo deste valor. Os vírus não alteram este valor mas usam de forma similar ao comentado acima \(SectionAlignment\).
 
 DWORD SizeOfImage: Quando o ligador cria a imagem, calcula o tamanho total das partes da imagem que o carregador deve carregar.
  Isso inclui o tamanho da região inicial da imagem base através do fim da última seção. No fim da última seção há o teto do multiplicador do alinhamento da seção.
  Quase todos os arquivos infectados utilizam este valor \(SizeOfImage\). Muitos calculam o campo incorretamente, o que causa a impossibilidade de execução sob Windows NT,
- exatamente pelo motivo de que o Windows 9x não verifica este campo ao executar o arquivo. Para alegria de muitos os criadores de virus não testam muito suas criações. Maior parte
- dos virus de Windows 9x contém esta falha. Muitos antivirus calculam errado este campo na desinfecção, o que causa um executável que era compátivel com windows NT deixe de ser compátivel 
+ exatamente pelo motivo de que o Windows 9x não verifica este campo ao executar o arquivo. Para alegria de muitos os criadores de vírus não testam muito suas criações. Maior parte
+ dos vírus de Windows 9x contém esta falha. Muitos antivírus calculam errado este campo na desinfecção, o que causa um executável que era compatível com windows NT deixe de ser compatível 
  quando desinfectado.
 
- DWORD Checksum: Este é o checksum do arquivo. Maior parte dos executáveis registram 0 neste campo. Entretando Dlls e drivers devem tem um checksum diferente de 0. 
-  Windows 9x ignora este campo e carrega o arquivo, o que facilita sua infecção no KERNEL32.dll. Este campo é utilizado por muitos virus para representar como marcação, para evitar
-  uma dupla infecção, outros tipos de virus recalcula-o para uma infecção mais efetiva.
+ DWORD Checksum: Este é o checksum do arquivo. Maior parte dos executáveis registram 0 neste campo. Entretanto Dlls e drivers devem tem um checksum diferente de 0. 
+  Windows 9x ignora este campo e carrega o arquivo, o que facilita sua infecção no KERNEL32.dll. Este campo é utilizado por muitos vírus para representar como marcação, para evitar
+  uma dupla infecção, outros tipos de vírus recalcula-o para uma infecção mais efetiva.
 
 \subsection{Tabela de Seções}
 
 
-O número de entradas da tabela de seções e dado pelo campo de número
+O número de entradas da tabela de seções é dado pelo campo de número
 de seções que está no cabeçalho. A entradas se iniciam em 1. Segue
 imediatamente o cabeçalho do PE. A ordem de dados e memória é selecionado
-pelo ligador. Os endereços virtuais para s seções são confirmados
-pelo ligador de forma crescente e adjacente, e devem sem multiplos
+pelo ligador. Os endereços virtuais para as seções são confirmados
+pelo ligador de forma crescente e adjacente, e devem sem múltiplos
 da Seção de alinhamento, que também é fornecida no cabeçalho do PE.
 Abaixo alguns de uma seção nesta tabela, divididos em palavras de
 8 bytes:
@@ -173,16 +173,16 @@ Tamanho virtual: O tamanho virtual é o alocado quando a seção é lida.
 
 
 Tamanho físico: O tamanho de dados inicializado no arquivo para a
-seção. É multiplo do campo de alinhamento do arquivo do cabeçalho
+seção. É múltiplo do campo de alinhamento do arquivo do cabeçalho
 do PE e deve ser menor ou igual ao tamanho virtual.
 
 
-Offset físico: Offset para apntar a primeira página da seção. É relativo
-ao inicio do arquivo executavel.
+Offset físico: Offset para apontar a primeira página da seção. É relativo
+ao inicio do arquivo executável.
 
 
 Flags da seção: Flags para sinalizar se a seção é de código, se está
-inicializada ou não, se deve ser armazezada, compartilhada, paginável,
+inicializada ou não, se deve ser armazenada, compartilhada, paginável,
 de leitura ou para escrita.
 
 
@@ -191,9 +191,9 @@ de leitura ou para escrita.
 
 A página de imagens contém todos os dados inicializados e todas as
 seções. As seções são ordenadas pelo endereço virtual reservado a
-elas. o Offset que aponta para a primeira página é especificado na
+elas. O Offset que aponta para a primeira página é especificado na
 tabela de seções como visto na subseção acima. Cada seção inicia com
-um multiplo da seção de alinhamento.
+um múltiplo da seção de alinhamento.
 
 
 \subsection{Importação}
@@ -202,19 +202,19 @@ um multiplo da seção de alinhamento.
 A informação de importação inicia com uma tabela de diretórios de
 importação que descreve a parte principal da informação de importação.
 A tabela de diretórios de importação contém informação de endereços
-que são utilizados nas referencias de correção para pontos de entrada
+que são utilizados nas referências de correção para pontos de entrada
 com uma DLL. A tabela de diretórios de importação consiste de um vetor
-de entradas de diretórios, uma entrada para cada referencia a DLL.
+de entradas de diretórios, uma entrada para cada referência a DLL.
 A última entrada é nula o que indica o fim da tabela de diretórios.
 
 
 \subsection{Exportação}
 
 
-A informaçãode exportação inicia com a tablela de diretórios de exportação
+A informação de exportação inicia com a tabela de diretórios de exportação
 que descreve a parte principal da informação de exportação. A tabela
 de diretórios de exportação contém informação de endereços que são
-utilizados nas referencias de correção para os pontos de entrada desta
+utilizados nas referências de correção para os pontos de entrada desta
 imagem.
 
 
@@ -225,7 +225,7 @@ A tabela de correção contém todas as entradas de correção da imagem.
 O tamanho total de dados de correção no cabeçalho é o número de bytes
 na tabela de correção. A tabela de correção é dividida em blocos de
 correção. Cada bloco representa as correções para um página de 4K
-bytes. Correções que são resolvidados pelo ligador necessitam ser
+bytes. Correções que são resolvidas pelo ligador necessitam ser
 processadas pelo carregador, a menos que a imagem não possa ser carregada
 na Base de imagens especificada no cabeçalho do PE.
 
@@ -235,7 +235,7 @@ na Base de imagens especificada no cabeçalho do PE.
 
 Recursos são indexados por uma arvore binária ordenada. O design
 como um todo pode chegar a $2^{31}$ nivéis, entretanto, NT utiliza
-somente 3 niveis: o mais alto com o \emph{tipo}, no subsequente \emph{nome},
+somente 3 níveis: o mais alto com o \emph{tipo}, no subsequente \emph{nome},
 depois a \emph{língua}.
 
 

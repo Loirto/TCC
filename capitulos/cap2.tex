@@ -206,12 +206,12 @@ aaaaaaaaaa&54&EA 5D AB BA D5 AE EA 5D AB BA\\
 \hline
 \end{tabular}
 
-Note que apesar de melhorar muito, na última linha ainda conseguimos ver perfeitamente um padrão. No entanto, quem olha para o padrão não poderá facilmente imaginar que este padrão é um único caracter. Para ficar mais claro o padrão, codificamos novamente a última linha com 20 caracteres e obtivemos:
+Note que apesar de melhorar muito, na última linha ainda conseguimos ver perfeitamente um padrão. No entanto, quem olha para o padrão não poderá facilmente imaginar que este padrão é um único carácter. Para ficar mais claro o padrão, codificamos novamente a última linha com 20 caracteres e obtivemos:
 \begin{center}
 \textbf{EA 5D AB BA D5 AE} EA 5D AB BA D5 AE \textbf{EA 5D AB BA D5 AE} EA 5D\\
 \end{center}
 
-Pode-se ver claramente o padrão agora que separamos as parte de uma cadeia mais longa. Entretanto, este padrão pode ser diminuido e talvez até eliminado somando-se ao caracter a posição dele na linha em módulo 255 e fazendo a operação ou exclusivo com o caracter codificado anteriormente. O padrão ainda poderá repetir-se quando a codificação resultar em 00. No entanto, já geramos muitos dígitos diferentes para dificultar bastante a decodificação. Não esquecendo que este  padrão só é perceptível por conta de que estamos codificando sempre o mesmo caractere N vezes, o que não ocorre em uma situação real.
+Pode-se ver claramente o padrão agora que separamos as parte de uma cadeia mais longa. Entretanto, este padrão pode ser diminuído e talvez até eliminado somando-se ao carácter a posição dele na linha em módulo 255 e fazendo a operação ou exclusivo com o carácter codificado anteriormente. O padrão ainda poderá repetir-se quando a codificação resultar em 00. No entanto, já geramos muitos dígitos diferentes para dificultar bastante a decodificação. Não esquecendo que este  padrão só é perceptível por conta de que estamos codificando sempre o mesmo caractere N vezes, o que não ocorre em uma situação real.
 
 A título de curiosidade, o resultado após implementar a soma posicional e a operação ou exclusivo com o caractere anterior pode ser visto abaixo.
 \begin{center}
@@ -237,14 +237,14 @@ P & P \% 2 & S & C & C$_{bin}$ & C$ \oplus $54 & V & X & R[P]\\
 
 Para entender a tabela acima:
 \begin{itemize}
-\item P = posição do caracter no vetor de caracteres
-\item C = carater da posição P
+\item P = posição do carácter no vetor de caracteres
+\item C = caractere da posição P
 \item S = valor usado para shift de bits. É sempre módulo de 3, com valor variando de 3 a 1, de forma decrescente.
 \item V = P \% 2 == 0 ? ROR C, S : ROL C, S. Ou seja, se for posição múltipla de 2 rotaciona à direita, senão rotaciona à esquerda
-\item X = (V + P) \& 255. O caracter codificado na coluna anterior, mais a posição dele na cadeia em módulo 255
-\item R[P] = P > 0 ? X $ \oplus $ R[P-1] : X. Se a posição no for a inicial, aplica ou exclusivo com o caracter codificado no passo anterior.
+\item X = (V + P) \& 255. O carácter codificado na coluna anterior, mais a posição dele na cadeia em módulo 255
+\item R[P] = P > 0 ? X $ \oplus $ R[P-1] : X. Se a posição no for a inicial, aplica ou exclusivo com o carácter codificado no passo anterior.
 \end{itemize}
-Note que na coluna \textbf{V} temos o resultado da codificação do nosso primeiro algorítimo. À partir da segunda linha a codificação começa a ficar diferente. O segundo caractere gerado na codificação anterior foi \textbf{5D}. Na nova codificação, foi aplicado \textbf{5D + 1 = 5E} em seguida \textbf{5E$ \oplus $EA} o que resultou em \textbf{B4}. O próximo caracter gerado era \textbf{AB}. A este caracter foi aplicado \textbf{AB + 2 = AD} em seguida \textbf{AD$ \oplus $B4}, o que resultou em \textbf{19} e assim sucessivamente. Note que esta codificação é muito mais poderosa pois é feita baseada no caracter anterior e na posição física do caracter. Além disso, acrescentamos uma dificuldade maior, imposta pelo próprio algorítimo, que é a decodificação do final para o começo.
+Note que na coluna \textbf{V} temos o resultado da codificação do nosso primeiro algorítimo. À partir da segunda linha a codificação começa a ficar diferente. O segundo caractere gerado na codificação anterior foi \textbf{5D}. Na nova codificação, foi aplicado \textbf{5D + 1 = 5E} em seguida \textbf{5E$ \oplus $EA} o que resultou em \textbf{B4}. O próximo carácter gerado era \textbf{AB}. A este carácter foi aplicado \textbf{AB + 2 = AD} em seguida \textbf{AD$ \oplus $B4}, o que resultou em \textbf{19} e assim sucessivamente. Note que esta codificação é muito mais poderosa pois é feita baseada no carácter anterior e na posição física do carácter. Além disso, acrescentamos uma dificuldade maior, imposta pelo próprio algorítimo, que é a decodificação do final para o começo.
 
 Agora que entendemos como é feita a criptografia, entender o código polimórfico torna-se muito simples. Conforme dissemos anteriormente, é necessário uma rotina de codificação e outra de decodificação. Sem tais rotinas não temos como desenvolver o processo. Em geral a rotina de codificação está em outro módulo - no caso dos software de proteção anti-cópia - ou é codificada junto como restante do código a ser protegido - no caso dos vírus de computador.
 
